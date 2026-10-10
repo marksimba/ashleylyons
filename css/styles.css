@@ -15,6 +15,9 @@
   --birch: #ebe3d5;
   --gold: #d9a441;
   --gold-soft: #e9c983;
+  --wine: #6e1f2e;
+  --wine-deep: #4a1620;
+  --wine-soft: #a84a5c;
   --ink: #23281f;
   --mist: rgba(244, 239, 230, 0.6);
 
@@ -286,9 +289,9 @@ img, svg { display: block; max-width: 100%; }
   position: relative; display: grid; grid-template-columns: 150px 1fr;
   gap: clamp(1.3rem, 3.5vw, 2.4rem); align-items: center;
   background:
-    radial-gradient(circle at 85% 10%, rgba(217,164,65,0.18), transparent 45%),
-    linear-gradient(150deg, #35543f 0%, #243b2d 100%);
-  border: 1px solid rgba(217,164,65,0.3); border-radius: var(--radius-lg);
+    radial-gradient(circle at 85% 10%, rgba(168,74,92,0.25), transparent 45%),
+    linear-gradient(150deg, #6e1f2e 0%, #4a1620 100%);
+  border: 1px solid rgba(168,74,92,0.45); border-radius: var(--radius-lg);
   padding: clamp(1.4rem, 4vw, 2.4rem); margin-bottom: 2rem; color: var(--cream);
   overflow: hidden;
 }
@@ -302,7 +305,7 @@ img, svg { display: block; max-width: 100%; }
   width: 140px; height: 140px; border-radius: 14px; position: relative;
   background:
     radial-gradient(circle at 70% 25%, rgba(255,255,255,0.2), transparent 45%),
-    linear-gradient(145deg, #3f6b4e, #16271c);
+    linear-gradient(145deg, #8a3444, #3a1019);
   box-shadow: 0 14px 40px -14px rgba(0,0,0,0.65);
 }
 .upcoming__disc::after {
@@ -311,7 +314,7 @@ img, svg { display: block; max-width: 100%; }
 }
 .upcoming__eyebrow { text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.72rem; color: var(--gold-soft); }
 .upcoming__title { color: var(--cream); font-size: clamp(1.6rem, 3.5vw, 2.3rem); margin: 0.25rem 0; }
-.upcoming__sub { font-family: var(--serif); font-style: italic; color: var(--sage); margin-bottom: 1.2rem; }
+.upcoming__sub { font-family: var(--serif); font-style: italic; color: #e4c3c9; margin-bottom: 1.2rem; }
 
 .upcoming__preview { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1.3rem; flex-wrap: wrap; }
 .upcoming__play {
@@ -320,11 +323,11 @@ img, svg { display: block; max-width: 100%; }
   padding: 0.6rem 1.2rem; border-radius: 999px; font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
   transition: background 0.25s var(--ease), border-color 0.25s var(--ease);
 }
-.upcoming__play:hover { background: rgba(255,255,255,0.2); border-color: var(--gold); }
-.upcoming__play.is-playing { background: var(--gold); color: var(--forest-deep); border-color: var(--gold); }
+.upcoming__play:hover { background: rgba(255,255,255,0.2); border-color: var(--wine-soft); }
+.upcoming__play.is-playing { background: var(--wine-soft); color: #fff; border-color: var(--wine-soft); }
 .upcoming__bar { flex: 1 1 160px; height: 5px; background: rgba(255,255,255,0.18); border-radius: 999px; overflow: hidden; }
-.upcoming__fill { height: 100%; width: 0; background: var(--gold); border-radius: 999px; transition: width 0.15s linear; }
-.upcoming__clip { font-size: 0.78rem; color: var(--sage); font-variant-numeric: tabular-nums; }
+.upcoming__fill { height: 100%; width: 0; background: var(--wine-soft); border-radius: 999px; transition: width 0.15s linear; }
+.upcoming__clip { font-size: 0.78rem; color: #d9b0b7; font-variant-numeric: tabular-nums; }
 
 .upcoming__meta { display: flex; align-items: center; gap: 1.4rem; flex-wrap: wrap; }
 .countdown { display: flex; gap: 0.7rem; }
@@ -333,11 +336,11 @@ img, svg { display: block; max-width: 100%; }
   background: rgba(0,0,0,0.22); border-radius: 10px; padding: 0.5rem 0.3rem;
 }
 .countdown__unit span { font-family: var(--serif); font-size: 1.5rem; color: var(--gold-soft); line-height: 1; font-variant-numeric: tabular-nums; }
-.countdown__unit small { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage); margin-top: 0.25rem; }
+.countdown__unit small { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: #d9b0b7; margin-top: 0.25rem; }
 .upcoming__notify { padding: 0.7rem 1.4rem; }
-.upcoming__date { margin-top: 1rem; font-size: 0.85rem; color: var(--sage); }
+.upcoming__date { margin-top: 1rem; font-size: 0.85rem; color: #d9b0b7; }
 .upcoming.is-released .countdown { display: none; }
-.upcoming.is-released .upcoming__badge { background: var(--moss); color: var(--cream); }
+.upcoming.is-released .upcoming__badge { background: var(--wine-soft); color: var(--cream); }
 
 /* ---------- Albums ---------- */
 .albums { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.8rem; }
