@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ashley Lyons — singer-songwriter. Debut single 'He Already Did' coming October 17, 2026. Hear a preview and be the first to know when it releases." />
+  <meta name="theme-color" content="#2f4a3a" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Ashley Lyons — Singer-Songwriter" />
+  <meta property="og:description" content="Debut single 'He Already Did' — coming October 17, 2026. Hear the preview." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ashleylyons.net/" />
+  <meta property="og:image" content="https://ashleylyons.net/assets/cover.jpeg" />
+  <link rel="canonical" href="https://ashleylyons.net/" />
+
+  <title>Ashley Lyons — Singer-Songwriter</title>
+
+  <link rel="icon" href="assets/leaf-favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ NAVIGATION ============ -->
+  <header class="site-header" id="siteHeader">
+    <nav class="nav" aria-label="Primary">
+      <a href="#top" class="nav__brand" aria-label="Ashley Lyons home">
+        <svg class="nav__leaf" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+          <path d="M12 2C7 6 4 10 4 15a8 8 0 0 0 16 0c0-5-3-9-8-13Z" fill="currentColor"/>
+          <path d="M12 4v16" stroke="#fff" stroke-width="1" opacity=".4"/>
+        </svg>
+        <span class="nav__name">Ashley Lyons</span>
+      </a>
+
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="#about">About</a></li>
+        <li><a href="#music">Music</a></li>
+        <li><a href="#music" class="nav__cta">Listen</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <span id="top"></span>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <div class="hero__layers" aria-hidden="true">
+        <div class="hero__sky"></div>
+        <div class="hero__sun"></div>
+        <div class="hero__mist"></div>
+        <svg class="hero__hills hero__hills--back" viewBox="0 0 1440 320" preserveAspectRatio="none">
+          <path d="M0,224L80,208C160,192,320,160,480,165.3C640,171,800,213,960,224C1120,235,1280,213,1360,202.7L1440,192L1440,320L0,320Z"></path>
+        </svg>
+        <svg class="hero__hills hero__hills--mid" viewBox="0 0 1440 320" preserveAspectRatio="none">
+          <path d="M0,256L60,240C120,224,240,192,360,197.3C480,203,600,245,720,250.7C840,256,960,224,1080,213.3C1200,203,1320,213,1380,218.7L1440,224L1440,320L0,320Z"></path>
+        </svg>
+      </div>
+
+      <div class="hero__content">
+        <p class="hero__eyebrow">Debut Single · Coming October 17</p>
+        <h1 class="hero__title">Ashley&nbsp;Lyons</h1>
+        <p class="hero__tagline">&ldquo;I will sing unto the LORD as long as I live: I will sing praise to my God while I have my being.&rdquo;<span class="hero__verse">Psalm 104:33 (KJV)</span></p>
+        <div class="hero__actions">
+          <a href="#music" class="btn btn--primary">Hear the Preview</a>
+        </div>
+      </div>
+
+      <a href="#about" class="hero__scroll" aria-label="Scroll to about">
+        <span></span>
+      </a>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="about section" id="about">
+      <div class="container about__grid">
+        <div class="about__media reveal">
+          <div class="about__photo" role="img" aria-label="Ashley Lyons smiling outdoors among green trees"></div>
+        </div>
+        <div class="about__text reveal">
+          <p class="section__eyebrow">The Artist</p>
+          <h2 class="section__title">Just getting started.</h2>
+          <p>Ashley Lyons is a singer-songwriter writing music to lift up the name of the Lord. Her debut single, <em>He Already Did</em>, is her first release &mdash; a song written in gratitude and offered as worship.</p>
+          <p>This is the beginning. New songs are on the way, and the heart behind them is simple: to sing to the Lord as long as she lives.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MUSIC / DISCOGRAPHY ============ -->
+    <section class="music section section--alt" id="music">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="section__eyebrow">The Music</p>
+          <h2 class="section__title">The Debut Single</h2>
+          <p class="section__lead">Hear a first listen before it&rsquo;s out everywhere.</p>
+        </div>
+
+        <!-- Coming soon / unreleased preview -->
+        <div class="upcoming reveal" id="upcoming">
+          <div class="upcoming__badge">Coming Soon</div>
+          <div class="upcoming__art" aria-hidden="true">
+            <div class="upcoming__disc"></div>
+          </div>
+          <div class="upcoming__body">
+            <p class="upcoming__eyebrow">Next Single · Preview</p>
+            <h3 class="upcoming__title" id="upTitle">He Already Did</h3>
+            <p class="upcoming__sub">A first listen before it&rsquo;s out everywhere.</p>
+
+            <div class="upcoming__preview">
+              <button class="upcoming__play" id="previewBtn" aria-label="Play 30-second preview">
+                <span class="upcoming__playicon" id="previewIcon">&#9654;</span>
+                <span id="previewLabel">Play preview</span>
+              </button>
+              <div class="upcoming__bar" aria-hidden="true"><div class="upcoming__fill" id="previewFill"></div></div>
+              <span class="upcoming__clip">0:30 clip</span>
+              <audio id="previewAudio" preload="none" src="assets/preview.mp3"></audio>
+            </div>
+
+            <div class="upcoming__meta">
+              <div class="countdown" id="countdown" role="timer" aria-live="polite" aria-label="Time until release">
+                <div class="countdown__unit"><span id="cdDays">00</span><small>days</small></div>
+                <div class="countdown__unit"><span id="cdHours">00</span><small>hrs</small></div>
+                <div class="countdown__unit"><span id="cdMins">00</span><small>min</small></div>
+                <div class="countdown__unit"><span id="cdSecs">00</span><small>sec</small></div>
+              </div>
+            </div>
+            <p class="upcoming__date" id="releaseDate"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ NEWSLETTER (removed) ============ -->
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" id="contact">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <span class="footer__name">Ashley Lyons</span>
+        <p>&ldquo;I will sing unto the LORD as long as I live.&rdquo; <br />Psalm 104:33 (KJV)</p>
+      </div>
+      <div class="footer__col">
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#music">Music</a></li>
+          <li><a href="#music">Music</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="mailto:hello@ashleylyons.net">hello@ashleylyons.net</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h3>Follow</h3>
+        <ul class="footer__social">
+          <li><a href="#" aria-label="Instagram">Instagram</a></li>
+          <li><a href="#" aria-label="Spotify">Spotify</a></li>
+          <li><a href="#" aria-label="Apple Music">Apple Music</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; <span id="year"></span> Ashley Lyons. Soli Deo gloria.</p>
+      <p class="footer__fine">Social links coming soon.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
