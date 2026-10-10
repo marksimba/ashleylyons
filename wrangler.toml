@@ -1,0 +1,9 @@
+name = "ashleylyons"
+compatibility_date = "2026-10-10"
+
+# Serve the site as static assets (no Worker script needed).
+# The repo root contains index.html, css/, js/, assets/, 404.html, etc.
+[assets]
+directory = "./"
+# Serve 404.html for unknown paths instead of a generic error.
+not_found_handling = "404-page"
