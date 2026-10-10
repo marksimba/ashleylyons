@@ -106,7 +106,7 @@ img, svg { display: block; max-width: 100%; }
 }
 .nav__brand { display: flex; align-items: center; gap: 0.55rem; color: var(--cream); }
 .site-header.is-scrolled .nav__brand { color: var(--forest); }
-.nav__leaf { color: var(--gold); flex-shrink: 0; }
+.nav__logo { flex-shrink: 0; width: 30px; height: 30px; object-fit: contain; }
 .nav__name { font-family: var(--serif); font-size: 1.5rem; font-weight: 600; letter-spacing: 0.02em; }
 
 .nav__menu { list-style: none; display: flex; align-items: center; gap: 1.6rem; }
