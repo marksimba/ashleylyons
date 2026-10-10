@@ -286,7 +286,7 @@ img, svg { display: block; max-width: 100%; }
 
 /* ---------- Upcoming / unreleased preview ---------- */
 .upcoming {
-  position: relative; display: grid; grid-template-columns: 150px 1fr;
+  position: relative; display: grid; grid-template-columns: 1fr;
   gap: clamp(1.3rem, 3.5vw, 2.4rem); align-items: center;
   background:
     radial-gradient(circle at 85% 10%, rgba(168,74,92,0.25), transparent 45%),
