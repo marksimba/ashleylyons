@@ -168,7 +168,7 @@ img, svg { display: block; max-width: 100%; }
 .hero__content { max-width: 760px; padding: 0 1.2rem; animation: heroIn 1.2s var(--ease) both; }
 .hero__eyebrow {
   text-transform: uppercase; letter-spacing: 0.35em; font-size: 0.78rem;
-  color: var(--gold-soft); margin-bottom: 1rem;
+  color: var(--gold-soft); margin-top: 0.9rem; margin-bottom: 0.5rem;
 }
 .hero__title {
   color: var(--cream); font-size: clamp(3.4rem, 11vw, 7.5rem); font-weight: 600;
