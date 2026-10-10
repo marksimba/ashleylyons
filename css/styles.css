@@ -522,9 +522,12 @@ img, svg { display: block; max-width: 100%; }
   .player__art { margin: 0 auto; }
   .player__controls, .player__progress { justify-content: center; }
   .player__list { text-align: left; }
-  .upcoming { grid-template-columns: 1fr; text-align: center; }
+  .upcoming { grid-template-columns: 1fr; text-align: center; overflow: visible; padding-top: 2.4rem; }
   .upcoming__art { margin: 0 auto; }
   .upcoming__preview, .upcoming__meta, .countdown { justify-content: center; }
+  .upcoming__badge {
+    top: 0; right: 50%; transform: translate(50%, -50%);
+  }
   .newsletter__inner { grid-template-columns: 1fr; }
   .footer__grid { grid-template-columns: 1fr 1fr; }
 }
