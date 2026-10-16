@@ -151,6 +151,28 @@
       }
 
       if (cdTimer) clearInterval(cdTimer);
+
+      // Celebrate! (one-time confetti burst)
+      if (!prefersReduced) celebrate();
+    };
+
+    const celebrate = () => {
+      const colors = ["#d9a441", "#e9c983", "#6e1f2e", "#a84a5c", "#f4efe6"];
+      const count = 90;
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement("div");
+        p.className = "confetti-piece";
+        p.style.left = Math.random() * 100 + "vw";
+        p.style.background = colors[Math.floor(Math.random() * colors.length)];
+        p.style.opacity = "1";
+        if (Math.random() > 0.5) p.style.borderRadius = "50%";
+        const dur = 2.5 + Math.random() * 2;
+        const delay = Math.random() * 0.6;
+        p.style.animation = `confettiFall ${dur}s linear ${delay}s forwards`;
+        p.style.transform = `rotate(${Math.random() * 360}deg)`;
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), (dur + delay) * 1000 + 100);
+      }
     };
 
     const renderCountdown = () => {

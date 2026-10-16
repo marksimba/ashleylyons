@@ -276,14 +276,47 @@ img, svg { display: block; max-width: 100%; }
 .upcoming__date { margin-top: 1rem; font-size: 0.85rem; color: #d9b0b7; }
 
 /* streaming links (shown only when released) */
-.upcoming__streams { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.3rem; }
-.upcoming__stream { padding: 0.7rem 1.5rem; }
+.upcoming__streams { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.6rem; }
+.upcoming__stream { padding: 0.8rem 1.7rem; font-size: 1rem; }
 .upcoming__stream.btn--ghost { border-color: rgba(255,255,255,0.5); color: var(--cream); }
 .upcoming__stream.btn--ghost:hover { background: var(--cream); color: var(--wine-deep); }
 
+/* celebratory release banner (shown only when released) */
+.upcoming__fanfare { display: none; }
+.upcoming.is-released .upcoming__fanfare {
+  display: block; font-family: var(--serif); font-style: italic;
+  color: var(--gold-soft); font-size: 1.15rem; margin: 0.2rem 0 1rem;
+  animation: fadeUp 0.6s var(--ease) both;
+}
+
 .upcoming.is-released .countdown { display: none; }
 .upcoming.is-released .upcoming__preview { display: none; }
-.upcoming.is-released .upcoming__badge { background: var(--wine-soft); color: var(--cream); }
+.upcoming.is-released .upcoming__badge {
+  background: var(--gold); color: var(--wine-deep); font-weight: 700;
+  animation: badgePulse 2.2s ease-in-out infinite;
+}
+.upcoming.is-released {
+  border-color: var(--gold-soft);
+  box-shadow: var(--shadow), 0 0 0 1px rgba(233,201,131,0.25), 0 0 40px -6px rgba(217,164,65,0.35);
+  animation: cardGlow 3.2s ease-in-out infinite;
+}
+.upcoming.is-released .upcoming__title {
+  background: linear-gradient(90deg, var(--cream), var(--gold-soft), var(--cream));
+  background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; animation: shine 4s linear infinite;
+}
+.upcoming.is-released .upcoming__streams .upcoming__stream { animation: popIn 0.5s var(--ease) both; }
+.upcoming.is-released .upcoming__streams .upcoming__stream:nth-child(2) { animation-delay: 0.12s; }
+
+@keyframes badgePulse { 0%,100% { box-shadow: 0 0 0 0 rgba(217,164,65,0.5); } 50% { box-shadow: 0 0 0 10px rgba(217,164,65,0); } }
+@keyframes cardGlow { 0%,100% { box-shadow: var(--shadow), 0 0 0 1px rgba(233,201,131,0.25), 0 0 40px -6px rgba(217,164,65,0.3); } 50% { box-shadow: var(--shadow), 0 0 0 1px rgba(233,201,131,0.4), 0 0 55px -4px rgba(217,164,65,0.5); } }
+@keyframes shine { to { background-position: 200% center; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes popIn { from { opacity: 0; transform: scale(0.8) translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* confetti */
+.confetti-piece { position: fixed; top: -12px; width: 10px; height: 14px; z-index: 300; pointer-events: none; will-change: transform, opacity; }
+@keyframes confettiFall { to { transform: translateY(105vh) rotate(720deg); opacity: 0; } }
 
 /* ---------- Footer ---------- */
 .footer { background: var(--forest-deep); color: var(--sage); padding: 4rem 0 2rem; }
