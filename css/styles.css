@@ -274,7 +274,15 @@ img, svg { display: block; max-width: 100%; }
 .countdown__unit small { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: #d9b0b7; margin-top: 0.25rem; }
 .upcoming__notify { padding: 0.7rem 1.4rem; }
 .upcoming__date { margin-top: 1rem; font-size: 0.85rem; color: #d9b0b7; }
+
+/* streaming links (shown only when released) */
+.upcoming__streams { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.3rem; }
+.upcoming__stream { padding: 0.7rem 1.5rem; }
+.upcoming__stream.btn--ghost { border-color: rgba(255,255,255,0.5); color: var(--cream); }
+.upcoming__stream.btn--ghost:hover { background: var(--cream); color: var(--wine-deep); }
+
 .upcoming.is-released .countdown { display: none; }
+.upcoming.is-released .upcoming__preview { display: none; }
 .upcoming.is-released .upcoming__badge { background: var(--wine-soft); color: var(--cream); }
 
 /* ---------- Footer ---------- */

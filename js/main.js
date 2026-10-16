@@ -113,15 +113,50 @@
 
     const pad = (n) => String(n).padStart(2, "0");
     let cdTimer = null;
+    let released = false;
+
+    // Preview override: /release path or ?preview=released forces the released
+    // view so the artist can see it before the real release date.
+    const params = new URLSearchParams(location.search);
+    const forcePreview =
+      params.get("preview") === "released" ||
+      /\/release\/?$/.test(location.pathname);
+
+    const streamLinks = $("#streamLinks");
+
+    const setReleased = (isPreview) => {
+      if (released) return;
+      released = true;
+      upcoming.classList.add("is-released");
+
+      const badge = $(".upcoming__badge", upcoming);
+      if (badge) badge.textContent = isPreview ? "Preview · Out Now" : "Out Now";
+
+      const eyebrow = $(".upcoming__eyebrow", upcoming);
+      if (eyebrow) eyebrow.textContent = "Debut Single · Out Now";
+      const sub = $(".upcoming__sub", upcoming);
+      if (sub) sub.textContent = "Available now on all streaming platforms.";
+
+      if (dateEl) dateEl.textContent = isPreview
+        ? "Preview mode — this is how the page will look on release day."
+        : "";
+
+      if (streamLinks) streamLinks.hidden = false;
+
+      // Hero pill → "Out Now"
+      const heroPill = document.querySelector(".hero__eyebrow");
+      if (heroPill) {
+        heroPill.innerHTML = 'Debut Single · <span class="hero__eyebrow-cue">Out now · Listen &darr;</span>';
+        heroPill.setAttribute("aria-label", "Debut single out now — listen");
+      }
+
+      if (cdTimer) clearInterval(cdTimer);
+    };
 
     const renderCountdown = () => {
       const diff = RELEASE_DATE - new Date();
       if (diff <= 0) {
-        upcoming.classList.add("is-released");
-        const badge = $(".upcoming__badge", upcoming);
-        if (badge) badge.textContent = "Out Now";
-        if (dateEl) dateEl.textContent = "Available now on all streaming platforms.";
-        if (cdTimer) clearInterval(cdTimer);
+        setReleased(false);
         return;
       }
       const d = Math.floor(diff / 86400000);
@@ -133,8 +168,13 @@
       if (cdMins) cdMins.textContent = pad(m);
       if (cdSecs) cdSecs.textContent = pad(s);
     };
-    renderCountdown();
-    cdTimer = setInterval(renderCountdown, 1000);
+
+    if (forcePreview) {
+      setReleased(true);
+    } else {
+      renderCountdown();
+      cdTimer = setInterval(renderCountdown, 1000);
+    }
 
     // ---- 30-second preview (real audio clip) ----
     // Clip: assets/preview.mp3 (30s from 0:39 of the full mix, with fades).
