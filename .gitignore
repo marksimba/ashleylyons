@@ -2,3 +2,7 @@
 *.log
 node_modules/
 .vscode/
+
+# Video production working files (large; not part of the website)
+video/
+cover.PNG
