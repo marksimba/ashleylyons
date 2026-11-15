@@ -198,8 +198,8 @@
       cdTimer = setInterval(renderCountdown, 1000);
     }
 
-    // ---- 30-second preview (real audio clip) ----
-    // Clip: assets/never-only-mine-preview.mp3 (first 15s of the mix, with fades).
+    // ---- 25-second preview (real audio clip) ----
+    // Clip: assets/never-only-mine-preview-25s.mp3 (first 25s of the mix, with fades).
     const previewBtn = $("#previewBtn");
     const previewIcon = $("#previewIcon");
     const previewLabel = $("#previewLabel");
