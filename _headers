@@ -20,6 +20,6 @@
   Cache-Control: public, max-age=31536000, immutable
 
 # Audio preview — allow range requests for seeking
-/assets/preview.mp3
+/assets/*.mp3
   Cache-Control: public, max-age=86400
   Accept-Ranges: bytes

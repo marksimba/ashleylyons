@@ -277,6 +277,7 @@ img, svg { display: block; max-width: 100%; }
 
 /* streaming links (shown only when released) */
 .upcoming__streams { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.6rem; }
+.upcoming__streams[hidden] { display: none; }
 .upcoming__stream { padding: 0.8rem 1.7rem; font-size: 1rem; }
 .upcoming__stream.btn--ghost { border-color: rgba(255,255,255,0.5); color: var(--cream); }
 .upcoming__stream.btn--ghost:hover { background: var(--cream); color: var(--wine-deep); }
@@ -317,6 +318,31 @@ img, svg { display: block; max-width: 100%; }
 /* confetti */
 .confetti-piece { position: fixed; top: -12px; width: 10px; height: 14px; z-index: 300; pointer-events: none; will-change: transform, opacity; }
 @keyframes confettiFall { to { transform: translateY(105vh) rotate(720deg); opacity: 0; } }
+
+/* featured card with artwork */
+.upcoming--featured { grid-template-columns: minmax(0, 1fr); }
+.upcoming__art {
+  width: 100%; height: auto; display: block; border-radius: var(--radius);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.15);
+}
+@media (min-width: 861px) {
+  .upcoming--featured { grid-template-columns: 1.1fr 1fr; padding: clamp(1.6rem, 3.5vw, 2.8rem); }
+  .upcoming--featured .upcoming__title { font-size: clamp(2rem, 4vw, 3rem); }
+}
+
+/* previous single: quieter secondary card */
+.released-single {
+  display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; flex-wrap: wrap;
+  background: var(--forest-deep); color: var(--cream); border-radius: var(--radius-lg);
+  padding: 1.3rem clamp(1.3rem, 3vw, 2rem);
+}
+.released-single__eyebrow { text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.68rem; color: var(--gold-soft); }
+.released-single__title { color: var(--cream); font-size: 1.4rem; margin-top: 0.1rem; }
+.released-single__links { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.released-single__links .btn { padding: 0.5rem 1.1rem; font-size: 0.88rem; }
+@media (max-width: 860px) {
+  .released-single { justify-content: center; text-align: center; }
+}
 
 /* ---------- Footer ---------- */
 .footer { background: var(--forest-deep); color: var(--sage); padding: 4rem 0 2rem; }

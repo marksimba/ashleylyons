@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Ashley Lyons — singer-songwriter. Debut single 'He Already Did' coming October 17, 2026. Hear a preview and be the first to know when it releases." />
+  <meta name="description" content="Ashley Lyons — singer-songwriter. New single 'Never Only Mine' coming November 27, 2026. Hear a preview. Debut single 'He Already Did' is out now." />
   <meta name="theme-color" content="#2f4a3a" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Ashley Lyons — Singer-Songwriter" />
-  <meta property="og:description" content="Debut single 'He Already Did' — coming October 17, 2026. Hear the preview." />
+  <meta property="og:description" content="New single 'Never Only Mine' — coming November 27, 2026. Hear the preview." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ashleylyons.net/" />
   <meta property="og:image" content="https://ashleylyons.net/assets/cover.jpeg" />
@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=20261016" />
+  <link rel="stylesheet" href="css/styles.css?v=20261114b" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -63,7 +63,7 @@
 
       <div class="hero__content">
         <h1 class="hero__title">Ashley&nbsp;Lyons</h1>
-        <a href="#music" class="hero__eyebrow" aria-label="Debut single coming October 17 — tap to hear the preview">Debut Single · Oct 17 · <span class="hero__eyebrow-cue">Tap to hear preview &darr;</span></a>
+        <a href="#music" class="hero__eyebrow" aria-label="New single coming November 27 — tap to hear the preview">New Single · Nov 27 · <span class="hero__eyebrow-cue">Tap to hear preview &darr;</span></a>
       </div>
 
       <a href="#about" class="hero__scroll" aria-label="Scroll to about">
@@ -90,26 +90,27 @@
       <div class="container">
         <div class="section__head reveal">
           <p class="section__eyebrow">The Music</p>
-          <h2 class="section__title">The Debut Single</h2>
+          <h2 class="section__title">New Single</h2>
         </div>
 
-        <!-- Coming soon / unreleased preview -->
-        <div class="upcoming reveal" id="upcoming">
+        <!-- Featured: coming soon / unreleased preview -->
+        <div class="upcoming upcoming--featured reveal" id="upcoming">
           <div class="upcoming__badge">Coming Soon</div>
+          <img class="upcoming__art" src="assets/never-only-mine-art.jpg" width="1200" height="900" alt="Pencil drawing of a mother holding her newborn beneath a star, beside a mother cradling her crowned son before a wooden cross" />
           <div class="upcoming__body">
-            <p class="upcoming__eyebrow">Next Single · Preview</p>
-            <h3 class="upcoming__title" id="upTitle">He Already Did</h3>
+            <p class="upcoming__eyebrow">New Single &middot; Preview</p>
+            <h3 class="upcoming__title" id="upTitle">Never Only Mine</h3>
             <p class="upcoming__sub">A first listen before it&rsquo;s out everywhere.</p>
             <p class="upcoming__fanfare" id="fanfare">The wait is over &mdash; it&rsquo;s here. &#127925;</p>
 
             <div class="upcoming__preview">
-              <button class="upcoming__play" id="previewBtn" aria-label="Play 30-second preview">
+              <button class="upcoming__play" id="previewBtn" aria-label="Play 15-second preview">
                 <span class="upcoming__playicon" id="previewIcon">&#9654;</span>
                 <span id="previewLabel">Play preview</span>
               </button>
               <div class="upcoming__bar" aria-hidden="true"><div class="upcoming__fill" id="previewFill"></div></div>
-              <span class="upcoming__clip">0:30 clip</span>
-              <audio id="previewAudio" preload="none" src="assets/preview.mp3"></audio>
+              <span class="upcoming__clip">0:15 clip</span>
+              <audio id="previewAudio" preload="none" src="assets/never-only-mine-preview.mp3"></audio>
             </div>
 
             <div class="upcoming__meta">
@@ -124,10 +125,22 @@
             <div class="upcoming__streams" id="streamLinks" hidden>
               <a class="btn btn--primary upcoming__stream" id="streamSpotify" href="https://open.spotify.com/artist/2u6B1OlPPQbvFLtnUCbcLt" target="_blank" rel="noopener noreferrer">Listen on Spotify</a>
               <a class="btn btn--ghost upcoming__stream" id="streamApple" href="https://music.apple.com/artist/6820266533" target="_blank" rel="noopener noreferrer">Apple Music</a>
-              <a class="btn btn--ghost upcoming__stream" id="streamYoutube" href="https://youtu.be/E40H5mmnSj8" target="_blank" rel="noopener noreferrer">Watch the Lyric Video</a>
             </div>
 
             <p class="upcoming__date" id="releaseDate"></p>
+          </div>
+        </div>
+
+        <!-- Previous single (already released) -->
+        <div class="released-single reveal">
+          <div class="released-single__text">
+            <p class="released-single__eyebrow">Debut Single &middot; Out Now</p>
+            <h3 class="released-single__title">He Already Did</h3>
+          </div>
+          <div class="released-single__links">
+            <a class="btn btn--primary" href="https://open.spotify.com/artist/2u6B1OlPPQbvFLtnUCbcLt" target="_blank" rel="noopener noreferrer">Spotify</a>
+            <a class="btn btn--ghost" href="https://music.apple.com/artist/6820266533" target="_blank" rel="noopener noreferrer">Apple Music</a>
+            <a class="btn btn--ghost" href="https://youtu.be/E40H5mmnSj8" target="_blank" rel="noopener noreferrer">Lyric Video</a>
           </div>
         </div>
       </div>
@@ -172,6 +185,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=20261016"></script>
+  <script src="js/main.js?v=20261114"></script>
 </body>
 </html>

@@ -98,9 +98,9 @@
   const upcoming = $("#upcoming");
   if (upcoming) {
     // ---- Release date ----
-    // Midnight (00:00) local to each viewer on October 17, 2026.
-    // Note: month is 0-indexed, so 9 = October. No time args = local midnight.
-    const RELEASE_DATE = new Date(2026, 9, 17, 0, 0, 0);
+    // Midnight (00:00) local to each viewer on November 27, 2026.
+    // Note: month is 0-indexed, so 10 = November. No time args = local midnight.
+    const RELEASE_DATE = new Date(2026, 10, 27, 0, 0, 0);
 
     const dateEl = $("#releaseDate");
     const cdDays = $("#cdDays"), cdHours = $("#cdHours"), cdMins = $("#cdMins"), cdSecs = $("#cdSecs");
@@ -133,7 +133,7 @@
       if (badge) badge.textContent = isPreview ? "Preview · Out Now" : "Out Now";
 
       const eyebrow = $(".upcoming__eyebrow", upcoming);
-      if (eyebrow) eyebrow.textContent = "Debut Single · Out Now";
+      if (eyebrow) eyebrow.textContent = "New Single · Out Now";
       const sub = $(".upcoming__sub", upcoming);
       if (sub) sub.textContent = "Available now on all streaming platforms.";
 
@@ -146,8 +146,8 @@
       // Hero pill → "Out Now"
       const heroPill = document.querySelector(".hero__eyebrow");
       if (heroPill) {
-        heroPill.innerHTML = 'Debut Single · <span class="hero__eyebrow-cue">Out now · Listen &darr;</span>';
-        heroPill.setAttribute("aria-label", "Debut single out now — listen");
+        heroPill.innerHTML = 'New Single · <span class="hero__eyebrow-cue">Out now · Listen &darr;</span>';
+        heroPill.setAttribute("aria-label", "New single out now — listen");
       }
 
       if (cdTimer) clearInterval(cdTimer);
@@ -199,7 +199,7 @@
     }
 
     // ---- 30-second preview (real audio clip) ----
-    // Clip: assets/preview.mp3 (30s from 0:39 of the full mix, with fades).
+    // Clip: assets/never-only-mine-preview.mp3 (first 15s of the mix, with fades).
     const previewBtn = $("#previewBtn");
     const previewIcon = $("#previewIcon");
     const previewLabel = $("#previewLabel");
