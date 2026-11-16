@@ -92,7 +92,7 @@
 
 
   /* =======================================================
-     UPCOMING SINGLE — countdown + 30s preview
+     UPCOMING SINGLE — countdown + 26s preview
      Edit RELEASE_DATE and the preview melody below.
      ======================================================= */
   const upcoming = $("#upcoming");
@@ -198,8 +198,8 @@
       cdTimer = setInterval(renderCountdown, 1000);
     }
 
-    // ---- 25-second preview (real audio clip) ----
-    // Clip: assets/never-only-mine-preview-25s.mp3 (first 25s of the mix, with fades).
+    // ---- 26-second preview (real audio clip) ----
+    // Clip: assets/never-only-mine-preview-26s.mp3 (first 26s of the mix, with fades).
     const previewBtn = $("#previewBtn");
     const previewIcon = $("#previewIcon");
     const previewLabel = $("#previewLabel");
