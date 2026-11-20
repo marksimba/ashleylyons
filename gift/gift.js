@@ -5,7 +5,7 @@
 (() => {
   'use strict';
 
-  const CODE = 'myprincess';
+  const CODE = 'princess';
   const OPEN_DATE = '2026-11-20';           // local date the gift is open
   const STORE_KEY = 'ashGift.stage.v1';     // -1 gate, 0-2 rooms, 3 chest, 4 reveal
   const LAUNCH_DAY = 27;                    // "Never Only Mine" drops Nov 27
@@ -120,7 +120,7 @@
       }
     });
     $('#gateHint').addEventListener('click', () => {
-      msg.textContent = 'Hint: it is what I call you. One word, all lowercase.';
+      msg.textContent = 'Hint: it\u2019s the password from the first program I ever wrote you.';
     });
   }
 
