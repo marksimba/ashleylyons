@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0f1a14" />
+  <title>A Little Something for Ash</title>
+
+  <link rel="icon" href="../assets/logo-forest-64.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Jost:wght@300;400;500;600&family=Montserrat:wght@300;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="gift.css?v=1" />
+</head>
+<body>
+  <div class="ambient" id="ambient" aria-hidden="true"></div>
+
+  <main class="shell" id="main">
+
+    <!-- ============ CLOSED (not today) ============ -->
+    <section class="screen" id="screen-closed" hidden>
+      <div class="card">
+        <p class="eyebrow">The cabin is quiet</p>
+        <h1>This surprise only lived on November 20.</h1>
+        <p>The fireflies have gone home for now. <a href="../">Come back to the main site</a>.</p>
+      </div>
+    </section>
+
+    <!-- ============ GATE ============ -->
+    <section class="screen" id="screen-gate" hidden>
+      <div class="card card--gate" id="gateCard">
+        <div class="door" aria-hidden="true">
+          <div class="door__knob"></div>
+          <div class="door__lock">🔒</div>
+        </div>
+        <p class="eyebrow">For Ash &middot; Today only</p>
+        <h1>Psst&hellip; there's a cabin in the woods with your name on it.</h1>
+        <p>The door is locked. Whisper the secret word to get in.</p>
+        <form id="gateForm" autocomplete="off" novalidate>
+          <label class="sr-only" for="codeInput">Secret word</label>
+          <input id="codeInput" type="text" inputmode="text" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="secret word" />
+          <button class="btn" type="submit">Unlock</button>
+        </form>
+        <p class="msg" id="gateMsg" role="status" aria-live="polite"></p>
+        <button class="linkbtn" id="gateHint" type="button">Need a hint?</button>
+      </div>
+    </section>
+
+    <!-- ============ GAME ============ -->
+    <section class="screen" id="screen-game" hidden>
+      <header class="hud">
+        <div class="hud__room" id="roomName"></div>
+        <ol class="keys" id="keys" aria-label="Keys found">
+          <li class="keys__slot" data-k="0"><span>🗝️</span></li>
+          <li class="keys__slot" data-k="1"><span>🗝️</span></li>
+          <li class="keys__slot" data-k="2"><span>🗝️</span></li>
+        </ol>
+      </header>
+
+      <div class="card card--game">
+        <div id="puzzle"></div>
+        <div class="helpbar">
+          <button class="linkbtn" id="hintBtn" type="button">Need a hint?</button>
+          <p class="hint" id="hintText" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ REVEAL ============ -->
+    <section class="screen" id="screen-reveal" hidden>
+      <div class="reveal">
+        <p class="eyebrow eyebrow--gold">Every key found</p>
+        <h1 class="reveal__title">Happy surprise, Ash.</h1>
+
+        <div class="ticket-wrap">
+          <article class="ticket" id="ticket" aria-label="VIP Hello Saints Access ticket for Ash">
+            <div class="ticket__shine" aria-hidden="true"></div>
+            <div class="ticket__main">
+              <p class="ticket__eyebrow">&#9733; Admit one &middot; Ash &#9733;</p>
+              <h2 class="ticket__title">VIP Hello Saints Access</h2>
+              <div id="logoSlot"></div>
+              <p class="ticket__sub">You cracked the cabin, princess. This one is all yours.</p>
+            </div>
+            <div class="ticket__stub" aria-hidden="true">
+              <span>VIP</span>
+              <small>No. 001</small>
+            </div>
+          </article>
+        </div>
+
+        <div class="reveal__actions">
+          <button class="btn" id="againBtn" type="button">Celebrate again 🎉</button>
+          <a class="linkbtn" href="../">Visit the main site</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
+
+  <!-- Logo: shows ../assets/hello-saints.png when it exists, otherwise a built-in recreation -->
+  <template id="tpl-logo">
+    <div class="hs-logo" role="img" aria-label="Hello Saints. Pastor exploring the LDS Church.">
+      <img class="hs-logo__img" src="../assets/hello-saints.png" alt="" hidden />
+      <div class="hs-logo__fallback" aria-hidden="true">
+        <div class="hs-logo__row">
+          <svg class="hs-logo__icon" viewBox="0 0 64 68" fill="none">
+            <rect x="18" y="3" width="40" height="32" stroke="#fff" stroke-width="5"/>
+            <path d="M4 20H40V50H15L4 63Z" fill="#14264a" stroke="#4aa3df" stroke-width="5" stroke-linejoin="miter"/>
+          </svg>
+          <div class="hs-logo__title"><span>HELLO</span><b>SAINTS</b></div>
+        </div>
+        <div class="hs-logo__tag"><i>PASTOR EXPLORING</i> <i class="blue">THE LDS CHURCH</i></div>
+      </div>
+    </div>
+  </template>
+
+  <script src="gift.js?v=1"></script>
+</body>
+</html>
