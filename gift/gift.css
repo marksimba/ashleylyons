@@ -53,8 +53,8 @@ a:hover { color: var(--gold); }
 }
 
 /* ---------- layout ---------- */
-.shell { position: relative; z-index: 1; min-height: 100vh; min-height: 100dvh; display: grid; place-items: center; padding: 1.2rem; }
-.screen { width: min(100%, 640px); animation: rise 0.7s var(--ease) both; }
+.shell { grid-template-columns: minmax(0, 1fr); position: relative; z-index: 1; min-height: 100vh; min-height: 100dvh; display: grid; place-items: center; padding: 1.2rem; }
+.screen { min-width: 0; width: min(100%, 640px); animation: rise 0.7s var(--ease) both; }
 @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 
 .card {
@@ -80,7 +80,7 @@ a:hover { color: var(--gold); }
 .btn:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -12px rgba(217, 164, 65, 0.95); }
 .btn:active { transform: translateY(0); }
 .btn[disabled] { opacity: 0.45; cursor: default; transform: none; }
-.linkbtn { background: none; border: 0; font: 400 0.9rem var(--sans); color: var(--gold-soft); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.linkbtn { display: inline-block; padding: 0.75rem 1rem; background: none; border: 0; font: 400 0.9rem var(--sans); color: var(--gold-soft); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .linkbtn:hover { color: var(--gold); }
 
 /* ---------- gate ---------- */
@@ -120,7 +120,7 @@ a:hover { color: var(--gold); }
 
 .card--game h2 { font-size: clamp(1.6rem, 5vw, 2.2rem); margin-bottom: 0.6rem; }
 .scene { font-size: 3rem; margin-bottom: 0.4rem; }
-.helpbar { margin-top: 1.4rem; min-height: 2.4rem; }
+.helpbar { margin-top: 0.8rem; min-height: 2.4rem; }
 .hint { margin-top: 0.5rem; font-style: italic; color: var(--sage) !important; font-size: 0.95rem; }
 .status { min-height: 1.6em; margin-top: 0.9rem; color: var(--gold-soft) !important; }
 
@@ -144,7 +144,7 @@ a:hover { color: var(--gold); }
 }
 .card .note p { color: #3a2c1a; }
 .note::before { content: "📌"; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: 1.4rem; }
-.note a { color: #7a4a10; }
+.note a { color: #7a4a10; display: inline-block; padding: 0.5rem 0.25rem; }
 .lock { display: flex; justify-content: center; align-items: center; gap: 1rem; margin: 1.2rem 0 0.6rem; }
 .dial { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; }
 .dial button { width: 44px; height: 32px; border-radius: 10px; border: 0; cursor: pointer; background: rgba(233, 201, 131, 0.2); color: var(--gold-soft); font-size: 1rem; }
@@ -229,6 +229,19 @@ a:hover { color: var(--gold); }
 
 /* ---------- confetti ---------- */
 .confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; }
+
+@media (max-width: 360px) {
+  .shell { padding: 0.8rem; }
+  .ticket::before, .ticket::after { right: 64px; }
+  .ticket__stub { width: 64px; }
+  .ticket__stub span { font-size: 1.5rem; }
+  .ticket__main { padding: 1rem 0.8rem; }
+  .hs-logo__fallback { padding: 0.7rem 0.6rem; }
+  .hs-logo__row { gap: 0.4rem; }
+  .hs-logo__title { letter-spacing: 0.14em; gap: 0.35em; }
+  .hs-logo__tag { white-space: normal; }
+  .pads { gap: 0.4rem; }
+}
 
 @media (max-width: 480px) {
   .ticket::before, .ticket::after { right: 84px; }
