@@ -220,7 +220,7 @@ a:hover { color: var(--gold); }
 }
 .hs-logo__row { display: flex; align-items: center; gap: 0.7rem; }
 .hs-logo__icon { width: clamp(34px, 8vw, 48px); flex: none; }
-.hs-logo__title { display: flex; gap: 0.5em; font-size: clamp(1.1rem, 4.6vw, 1.9rem); letter-spacing: 0.22em; white-space: nowrap; }
+.hs-logo__title { display: flex; gap: 0.5em; font-size: clamp(0.8rem, 3.3vw, 1.9rem); letter-spacing: 0.12em; white-space: nowrap; }
 .hs-logo__title span { color: #4aa3df; font-weight: 300; }
 .hs-logo__title b { color: #fff; font-weight: 500; }
 .hs-logo__tag { margin-top: 0.4rem; text-align: center; font-size: clamp(0.5rem, 2.2vw, 0.85rem); letter-spacing: 0.01em; white-space: nowrap; }
@@ -238,7 +238,8 @@ a:hover { color: var(--gold); }
   .ticket__main { padding: 1rem 0.8rem; }
   .hs-logo__fallback { padding: 0.7rem 0.6rem; }
   .hs-logo__row { gap: 0.4rem; }
-  .hs-logo__title { letter-spacing: 0.14em; gap: 0.35em; }
+  .hs-logo__icon { width: 28px; }
+  .hs-logo__title { font-size: 0.85rem; letter-spacing: 0.1em; gap: 0.35em; }
   .hs-logo__tag { white-space: normal; }
   .pads { gap: 0.4rem; }
 }
