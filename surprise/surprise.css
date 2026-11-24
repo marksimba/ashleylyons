@@ -1,0 +1,171 @@
+/* Twelve Years, Twelve Doors. Builds on ../gift/gift.css (palette, cards, buttons, pads, dials). */
+
+.screen--wide { width: min(100%, 720px); }
+.card--game .scene { font-size: 2.6rem; }
+.card h2 { font-family: var(--serif); }
+.lead { max-width: 46ch; margin-inline: auto; }
+.small { font-size: 0.88rem; opacity: 0.8; }
+
+/* ---------- HUD + collected pieces ---------- */
+.hud__count { font: 500 0.72rem var(--sans); letter-spacing: 0.2em; color: var(--sage); }
+.pieces { list-style: none; display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; margin: 0 0.4rem 0.9rem; }
+.pieces li {
+  aspect-ratio: 8 / 9; border-radius: 4px; border: 1px dashed rgba(233, 201, 131, 0.35);
+  background: rgba(0, 0, 0, 0.25); overflow: hidden; transition: all 0.5s var(--ease);
+}
+.pieces li.on { border-style: solid; border-color: var(--gold); box-shadow: 0 0 10px rgba(233, 201, 131, 0.55); }
+.piece {
+  width: 100%; height: 100%; background-image: url("img/invitation.jpg");
+  background-size: 300% 400%; background-repeat: no-repeat; background-color: #14264a;
+}
+
+/* ---------- common inputs ---------- */
+.answer { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; margin: 1rem 0 0.2rem; }
+.answer input {
+  flex: 1 1 200px; max-width: 320px; padding: 0.85rem 1.1rem; border-radius: 999px; text-align: center;
+  border: 1px solid rgba(233, 201, 131, 0.4); background: rgba(0, 0, 0, 0.35); color: var(--cream); font: 400 1rem var(--sans);
+}
+.answer input::placeholder { color: rgba(244, 239, 230, 0.4); }
+.keys-row { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; margin: 0.9rem auto 0; max-width: 460px; }
+.kb {
+  min-width: 40px; height: 44px; padding: 0 0.5rem; border-radius: 10px; border: 1px solid rgba(233, 201, 131, 0.3);
+  background: rgba(233, 201, 131, 0.12); color: var(--cream); font: 500 1rem var(--sans); cursor: pointer;
+}
+.kb:hover { background: rgba(233, 201, 131, 0.28); }
+.kb[disabled] { opacity: 0.25; cursor: default; }
+.kb.good { background: rgba(107, 143, 113, 0.55); }
+.kb.bad { background: rgba(110, 31, 46, 0.6); }
+
+.photo-frame { width: min(100%, 360px); margin: 0 auto 1rem; border-radius: 14px; overflow: hidden; box-shadow: 0 16px 36px -16px #000; border: 2px solid rgba(233, 201, 131, 0.5); }
+.photo-frame img { width: 100%; height: auto; display: block; }
+
+/* ---------- memory card (after each room) ---------- */
+.memory { animation: rise 0.6s var(--ease) both; }
+.memory .photo-frame { transform: rotate(-1.5deg); background: #f4efe6; padding: 8px 8px 30px; border-radius: 4px; border: 0; }
+.memory .photo-frame img { border-radius: 2px; }
+.memory h2 { margin: 0.2rem 0 0.5rem; font-size: clamp(1.7rem, 6vw, 2.3rem); }
+.memory p { margin: 0.45rem auto; max-width: 46ch; }
+.memory .song { color: var(--gold-soft) !important; font-style: italic; }
+.memory .earned { display: flex; align-items: center; justify-content: center; gap: 0.7rem; margin: 1rem 0 0.4rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; font-size: 0.78rem; color: var(--gold-soft) !important; }
+.memory .earned .piece-wrap { animation: keyspin 1s var(--ease) both; }
+
+/* ---------- 2014 bushes ---------- */
+.bushes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; max-width: 380px; margin: 1rem auto; }
+.bush { aspect-ratio: 1.2; border-radius: 18px; border: 0; background: linear-gradient(180deg, #2f5a3a, #1f3a28); font-size: 2.6rem; cursor: pointer; position: relative; box-shadow: inset 0 -8px 0 rgba(0,0,0,.25); }
+.bush.rustle { animation: rustle 0.12s linear infinite; }
+@keyframes rustle { 25% { transform: translateX(-4px) rotate(-2deg); } 75% { transform: translateX(4px) rotate(2deg); } }
+.bush.squirrel::after { content: "🐿️"; position: absolute; inset: 0; display: grid; place-items: center; font-size: 2.4rem; }
+.bush.safe::after { content: "🛡️"; position: absolute; inset: 0; display: grid; place-items: center; font-size: 2.2rem; }
+
+/* ---------- cipher ---------- */
+.cipher { font: 500 1.05rem/1.7 "Jost", monospace; letter-spacing: 0.16em; word-break: break-word; margin: 0.8rem 0; padding: 1rem; border-radius: 12px; background: rgba(0, 0, 0, 0.35); }
+.cipher--out { color: var(--gold-soft); min-height: 5.2em; }
+.shiftbar { display: flex; align-items: center; gap: 0.8rem; justify-content: center; margin: 0.4rem 0; }
+.shiftbar input { flex: 1; max-width: 320px; accent-color: var(--gold); height: 36px; }
+.shiftbar output { min-width: 3.2ch; font: 600 1.4rem var(--serif); color: var(--gold-soft); }
+
+/* ---------- mastermind ---------- */
+.guesses { max-width: 340px; margin: 0.8rem auto; display: grid; gap: 0.35rem; }
+.guess { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 0.35rem 0.8rem; border-radius: 10px; background: rgba(0, 0, 0, 0.3); }
+.guess b { font: 600 1.4rem var(--serif); letter-spacing: 0.3em; }
+.peg { display: inline-block; width: 13px; height: 13px; margin-left: 4px; border-radius: 50%; border: 1px solid rgba(255,255,255,.35); }
+.peg.g { background: #6fd08c; } .peg.y { background: var(--gold); } .peg.n { background: transparent; }
+.entry { display: flex; justify-content: center; gap: 0.5rem; margin: 0.6rem 0; }
+.entry span { width: 46px; height: 56px; display: grid; place-items: center; border-radius: 12px; background: #000; border: 2px solid rgba(233, 201, 131, 0.5); font: 600 2rem var(--serif); color: var(--gold-soft); }
+.numpad { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.4rem; max-width: 300px; margin: 0.6rem auto; }
+
+/* ---------- sliding puzzle ---------- */
+.slide { position: relative; width: min(100%, 320px); margin: 1rem auto; border-radius: 10px; overflow: hidden; background: #000; touch-action: manipulation; }
+.slide button { position: absolute; border: 1px solid rgba(0,0,0,.5); padding: 0; cursor: pointer; background-repeat: no-repeat; transition: left 0.15s, top 0.15s; }
+.slide button.blank { visibility: hidden; }
+.moves { font: 500 0.85rem var(--sans); letter-spacing: 0.14em; color: var(--sage); }
+
+/* ---------- hangman ---------- */
+.phrase { display: flex; flex-wrap: wrap; gap: 0.2rem 1rem; justify-content: center; margin: 1rem 0; }
+.word { display: flex; gap: 0.3rem; }
+.word span { width: 1.5rem; height: 2.2rem; border-bottom: 3px solid var(--gold); text-align: center; font: 600 1.6rem var(--serif); color: var(--gold-soft); }
+.lives { font-size: 1.4rem; letter-spacing: 0.2em; }
+
+/* ---------- memory match ---------- */
+.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; max-width: 360px; margin: 1rem auto; }
+.mcard { aspect-ratio: 1; border-radius: 14px; border: 1px solid rgba(233, 201, 131, 0.3); background: linear-gradient(135deg, #2f4a3a, #22382c); font-size: 0; cursor: pointer; transition: transform 0.25s; }
+.mcard.up, .mcard.done { font-size: clamp(1.5rem, 8vw, 2.3rem); background: #f4efe6; transform: rotateY(0); }
+.mcard.done { background: rgba(233, 201, 131, 0.35); }
+
+/* ---------- rodeo ---------- */
+.rodeo { position: relative; height: 54px; margin: 1.2rem 0 0.6rem; border-radius: 12px; background: #000; border: 1px solid rgba(233, 201, 131, 0.3); overflow: hidden; }
+.rodeo__zone { position: absolute; top: 0; bottom: 0; background: rgba(111, 208, 140, 0.5); border-inline: 2px solid #6fd08c; }
+.rodeo__cur { position: absolute; top: 4px; bottom: 4px; width: 8px; margin-left: -4px; border-radius: 4px; background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+.bigbtn { min-width: 200px; padding: 1.1rem 2rem; font-size: 1rem; }
+
+/* ---------- trick shot ---------- */
+.shot { width: 100%; height: auto; border-radius: 14px; background: linear-gradient(180deg, #16314a, #0c1d2c); border: 1px solid rgba(233, 201, 131, 0.25); display: block; touch-action: manipulation; }
+.sliders { display: grid; gap: 0.5rem; max-width: 420px; margin: 0.8rem auto; }
+.sliders label { display: grid; grid-template-columns: 5.5rem 1fr 3.2rem; align-items: center; gap: 0.6rem; font-size: 0.9rem; text-align: left; }
+.sliders input { accent-color: var(--gold); height: 32px; width: 100%; }
+.sliders output { font-weight: 500; color: var(--gold-soft); }
+
+/* ---------- ice maze ---------- */
+.ice { display: grid; grid-template-columns: repeat(8, 1fr); width: min(100%, 360px); margin: 1rem auto; gap: 2px; touch-action: none; }
+.ice div { aspect-ratio: 1; display: grid; place-items: center; border-radius: 6px; font-size: clamp(1rem, 5.6vw, 1.7rem); background: rgba(190, 225, 255, 0.2); }
+.ice .rock { background: #3b4650; }
+.ice .goal { background: rgba(233, 201, 131, 0.3); }
+.dpad { display: grid; grid-template-columns: repeat(3, 56px); grid-template-rows: repeat(2, 48px); gap: 0.4rem; justify-content: center; margin: 0.6rem 0; }
+.dpad button { border-radius: 12px; border: 1px solid rgba(233, 201, 131, 0.35); background: rgba(233, 201, 131, 0.15); color: var(--cream); font-size: 1.2rem; cursor: pointer; }
+.dpad .up { grid-column: 2; grid-row: 1; } .dpad .left { grid-column: 1; grid-row: 2; } .dpad .down { grid-column: 2; grid-row: 2; } .dpad .right { grid-column: 3; grid-row: 2; }
+
+/* ---------- six boys ---------- */
+.bank { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin: 0.8rem 0; }
+.bank span { padding: 0.4rem 0.9rem; border-radius: 999px; background: rgba(233, 201, 131, 0.2); letter-spacing: 0.2em; font-weight: 500; }
+.rows { display: grid; gap: 0.45rem; max-width: 380px; margin: 0.8rem auto; }
+.rows label { display: grid; grid-template-columns: 3.6rem 1fr; gap: 0.6rem; align-items: center; font: 600 1.15rem var(--serif); color: var(--gold-soft); text-align: left; }
+.rows input { padding: 0.65rem 0.9rem; border-radius: 10px; border: 1px solid rgba(233, 201, 131, 0.4); background: rgba(0, 0, 0, 0.35); color: var(--cream); font: 400 1rem var(--sans); width: 100%; }
+.rows input.ok { border-color: #6fd08c; background: rgba(111, 208, 140, 0.18); }
+
+/* ---------- word search ---------- */
+.ws { display: grid; grid-template-columns: repeat(9, 1fr); width: min(100%, 380px); margin: 0.8rem auto; gap: 2px; user-select: none; }
+.ws button { aspect-ratio: 1; border: 0; border-radius: 5px; background: rgba(255, 255, 255, 0.08); color: var(--cream); font: 500 clamp(0.8rem, 4vw, 1.1rem) var(--sans); cursor: pointer; padding: 0; }
+.ws button.start { background: var(--gold); color: #000; }
+.ws button.found { background: rgba(111, 208, 140, 0.55); color: #fff; }
+.wlist { display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; justify-content: center; font-size: 0.9rem; letter-spacing: 0.1em; }
+.wlist s { opacity: 0.45; }
+
+/* ---------- lights out ---------- */
+.lights { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; width: min(100%, 320px); margin: 1rem auto; }
+.lights button { aspect-ratio: 1; border-radius: 12px; border: 1px solid rgba(255,255,255,.1); background: #121c16; cursor: pointer; transition: background 0.2s, box-shadow 0.2s; }
+.lights button.on { background: radial-gradient(circle, #fff3c4, var(--gold)); box-shadow: 0 0 18px rgba(233, 201, 131, 0.7); }
+
+/* ---------- sudoku ---------- */
+.sudo { display: grid; grid-template-columns: repeat(6, 1fr); width: min(100%, 340px); margin: 1rem auto; border: 3px solid var(--gold); border-radius: 8px; overflow: hidden; }
+.sudo button { aspect-ratio: 1; border: 1px solid rgba(233, 201, 131, 0.25); background: rgba(0, 0, 0, 0.3); color: var(--cream); font-size: clamp(1.1rem, 6vw, 1.7rem); cursor: pointer; padding: 0; }
+.sudo button.cb { border-right: 3px solid var(--gold); }
+.sudo button.rb { border-bottom: 3px solid var(--gold); }
+.sudo button.given { background: rgba(233, 201, 131, 0.16); font-weight: 600; cursor: default; }
+.sudo button.sel { outline: 3px solid var(--gold); outline-offset: -3px; }
+.sudo button.clash { background: rgba(110, 31, 46, 0.6); }
+.symrow { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.35rem; max-width: 380px; margin: 0.6rem auto; }
+.symrow .kb { min-width: 0; padding: 0; font-size: 1.3rem; }
+
+/* ---------- jigsaw ---------- */
+.jig__title { font-size: clamp(1.7rem, 6vw, 2.3rem); margin-bottom: 0.4rem; }
+.jig { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; width: min(100%, 340px); margin: 1rem auto; padding: 3px; border-radius: 10px; background: rgba(233, 201, 131, 0.25); }
+.jig button { padding: 0; border: 2px solid transparent; border-radius: 4px; aspect-ratio: 8 / 9; cursor: pointer; background-color: #14264a; background-image: url("img/invitation.jpg"); background-size: 300% 400%; background-repeat: no-repeat; transition: transform 0.2s; }
+.jig button.sel { border-color: var(--gold); transform: scale(0.94); box-shadow: 0 0 14px var(--gold); }
+.jig button.ok { border-color: rgba(111, 208, 140, 0.9); }
+.jig.peek::after { content: ""; position: absolute; inset: 3px; background: url("img/invitation.jpg") center / 100% 100% no-repeat; border-radius: 6px; opacity: 0.92; pointer-events: none; }
+.jig__tools { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+/* ---------- reveal ---------- */
+.invite { width: min(100%, 420px); height: auto; margin: 0 auto; border-radius: 10px; box-shadow: 0 40px 80px -30px #000, 0 0 70px -10px rgba(233, 201, 131, 0.55); animation: ticketin 1.1s var(--ease) both; }
+
+@media (max-width: 480px) {
+  .screen--wide .card { padding: 1.1rem 0.8rem; }
+  .pieces { gap: 3px; margin-inline: 0.1rem; }
+  .sliders label { grid-template-columns: 4.6rem 1fr 3rem; font-size: 0.82rem; }
+}
+
+.memory .song a { display: inline-block; padding: 0.7rem 0.6rem; margin: -0.4rem 0; }
+
+/* keep the invitation a surprise: collected pieces are only a blurred glimpse until the jigsaw */
+.pieces .piece, .earned .piece { filter: blur(5px) saturate(1.3) brightness(1.1); transform: scale(1.25); }
+.pieces li, .earned .piece-wrap { overflow: hidden; }

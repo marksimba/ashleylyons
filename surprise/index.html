@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0f1a14" />
+  <title>Twelve Years, Twelve Doors</title>
+
+  <link rel="icon" href="../assets/logo-forest-64.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../gift/gift.css?v=4" />
+  <link rel="stylesheet" href="surprise.css?v=3" />
+</head>
+<body>
+  <div class="ambient" id="ambient" aria-hidden="true"></div>
+
+  <main class="shell" id="main">
+
+    <!-- CLOSED -->
+    <section class="screen" id="screen-closed" hidden>
+      <div class="card">
+        <p class="eyebrow">The house is quiet</p>
+        <h1 id="closedTitle">Come back soon.</h1>
+        <p id="closedText"></p>
+      </div>
+    </section>
+
+    <!-- GATE -->
+    <section class="screen" id="screen-gate" hidden>
+      <div class="card card--gate" id="gateCard">
+        <div class="door" aria-hidden="true">
+          <div class="door__knob"></div>
+          <div class="door__lock">🔒</div>
+        </div>
+        <p class="eyebrow">For Ash &middot; Twelve years</p>
+        <h1>Twelve doors. Twelve years. One very patient husband.</h1>
+        <p>Every year of us is behind a door. Whisper the secret word to start.</p>
+        <form id="gateForm" autocomplete="off" novalidate>
+          <label class="sr-only" for="codeInput">Secret word</label>
+          <input id="codeInput" type="text" inputmode="text" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="secret word" />
+          <button class="btn" type="submit">Unlock</button>
+        </form>
+        <p class="msg" id="gateMsg" role="status" aria-live="polite"></p>
+        <button class="linkbtn" id="gateHint" type="button">Need a hint?</button>
+      </div>
+    </section>
+
+    <!-- GAME -->
+    <section class="screen screen--wide" id="screen-game" hidden>
+      <header class="hud">
+        <div class="hud__room" id="roomName"></div>
+        <div class="hud__count" id="pieceCount" aria-live="polite"></div>
+      </header>
+      <ol class="pieces" id="pieces" aria-label="Puzzle pieces found"></ol>
+
+      <div class="card card--game">
+        <div id="puzzle"></div>
+        <div class="helpbar">
+          <button class="linkbtn" id="hintBtn" type="button">Need a hint?</button>
+          <p class="hint" id="hintText" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- JIGSAW -->
+    <section class="screen screen--wide" id="screen-jig" hidden>
+      <div class="card card--game">
+        <p class="eyebrow eyebrow--gold">All twelve pieces</p>
+        <h2 class="jig__title">Put the invitation together</h2>
+        <p>Tap one piece, then tap another to swap them.</p>
+        <div class="jig" id="jig" role="group" aria-label="Jigsaw board"></div>
+        <p class="status" id="jigStatus" role="status" aria-live="polite"></p>
+        <div class="jig__tools">
+          <button class="linkbtn" id="peekBtn" type="button">Peek at the picture</button>
+          <button class="linkbtn" id="jigHint" type="button">Need a hint?</button>
+        </div>
+        <p class="hint" id="jigHintText"></p>
+      </div>
+    </section>
+
+    <!-- REVEAL -->
+    <section class="screen screen--wide" id="screen-reveal" hidden>
+      <div class="reveal">
+        <p class="eyebrow eyebrow--gold">Twelve years later</p>
+        <h1 class="reveal__title">Ash, you're invited.</h1>
+        <img class="invite" id="inviteImg" src="img/invitation.jpg" alt="Invitation. You're invited, Ashley Lyons. December 4, 2026, 7:00 PM. Privette Hill Prom. RSVP by November 28, 2026." width="1152" height="1728" />
+        <div class="reveal__actions">
+          <button class="btn" id="againBtn" type="button">Celebrate again 🎉</button>
+          <a class="linkbtn" href="img/invitation.jpg" download="Ash-invitation.jpg">Save the invitation</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
+
+  <script src="util.js?v=1"></script>
+  <script src="games.js?v=2"></script>
+  <script src="surprise.js?v=2"></script>
+</body>
+</html>
