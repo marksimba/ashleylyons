@@ -417,7 +417,7 @@
       status.textContent = `${n} of 6 placed`;
       if (n === 6 && !finished) { finished = true; blip(6); setTimeout(win, 900); }
     }
-    box.append(...head('👨‍👦‍👦', 'One of My Six', 'Kirk was born, and the van got air on the road trip. Meanwhile, your six boys’ names have been scrambled. Unscramble them and write each name next to the year he was born.'),
+    box.append(...head('👨‍👦‍👦', 'Stitches and Scrambles', 'Kirk was born, Brigham got stitches, and the van got air on the road trip. Meanwhile, your six boys’ names have been scrambled. Unscramble them and write each name next to the year he was born.'),
       h('div', { class: 'bank', 'aria-label': 'Scrambled names' }, bank.map((s) => h('span', {}, s))),
       h('div', { class: 'rows' }, BOYS.map(([, y], i) => h('label', {}, String(y), inputs[i]))), status);
   };

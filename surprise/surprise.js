@@ -58,8 +58,8 @@
       joke: 'The borrowed van’s tires were not great in the snow.',
       song: ['The Rest of Our Life', 'Tim McGraw & Faith Hill'],
       hint: 'You must stop against a tree to turn. Work backward from the castle: what would stop you right next to it?' },
-    { year: 2023, tag: 'Year 9', title: 'One of My Six', alt: 'The two of you at Mount Rushmore',
-      big: 'Kirk was born, one of your six boys.',
+    { year: 2023, tag: 'Year 9', title: 'Stitches and Scrambles', alt: 'The two of you at Mount Rushmore',
+      big: 'Kirk was born, and Brigham got stitches this year.',
       joke: 'Your van accidentally got air on the road trip.',
       song: ['Growing Old With You', 'Restless Road'],
       hint: 'Duane, Andy, Cody, Brigham, Kirk, Ephraim. Match each name to the year he arrived.' },
@@ -171,7 +171,7 @@
       h('h2', {}, r.title),
       h('p', {}, r.big),
       h('p', {}, r.joke),
-      h('p', { class: 'song' }, `🎵 ${r.song[0]}, ${r.song[1]} `, h('a', { href: `https://open.spotify.com/search/${q}`, target: '_blank', rel: 'noopener' }, 'Listen')),
+      h('p', { class: 'song' }, `🎵 ${r.song[0]}, ${r.song[1]} `, h('a', { href: `https://music.apple.com/us/search?term=${q}`, target: '_blank', rel: 'noopener' }, 'Listen')),
       i >= 1
         ? h('div', { class: 'earned' }, h('span', { class: 'piece-wrap', style: 'display:block;width:38px;height:43px;border-radius:5px;overflow:hidden;border:2px solid var(--gold);box-shadow:0 0 16px rgba(233,201,131,.7)' }, piece(i - 1)), h('span', {}, `Puzzle piece ${i} of 12`))
         : h('div', { class: 'earned' }, h('span', {}, '🗝️ Bonus room cleared. The puzzle board is yours.')),
