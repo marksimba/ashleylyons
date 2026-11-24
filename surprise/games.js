@@ -24,25 +24,27 @@
     const status = statusEl();
 
     const stepTrivia = () => {
+      window.SUR.hintNow = 'Everything is bigger in their home state. Type the name of the school, or just the state.';
       box.replaceChildren(
-        h('div', { class: 'photo-frame' }, h('img', { src: 'img/2014.jpg', alt: 'The two of you on your wedding day, cutting the cake', width: 1000, height: 664 })),
+        h('div', { class: 'photo-frame' }, h('img', { src: 'img/2014.jpg', alt: 'Our wedding day, cutting the cake', width: 1000, height: 664 })),
         h('h2', {}, 'Day One'),
-        h('p', { class: 'lead' }, 'December 13, 2014. You said yes, and then you sat down to watch your very first football game together. BYU was playing…'),
+        h('p', { class: 'lead' }, 'December 13, 2014. We got married, and not long after we watched our very first football game together. BYU was playing…'),
         (() => {
           const { form } = answerRow('who?', (v, input) => {
             const n = norm(v);
             if (n.includes('texas') || n.includes('longhorn')) { blip(3); stepBush(); }
-            else { buzz(); shake(box); status.textContent = 'Wrong team. Hook ’em… no wait, that is the right one. Try again.'; input.select(); }
+            else { buzz(); shake(box); status.textContent = 'Not that team. Try again.'; input.select(); }
           }, 'Opponent');
           return form;
         })(), status);
     };
 
     const stepBush = () => {
+      window.SUR.hintNow = 'One bush at a time will shake. Tap that one before it stops. Do it six times in a row. A miss or a wrong tap starts the count over.';
       const NEED = 6;
       let streak = 0, target = -1, round = 0, running = false;
       const bushes = Array.from({ length: 6 }, (_, i) => h('button', { class: 'bush', type: 'button', 'aria-label': `Bush ${i + 1}`, onclick: () => tap(i) }, '🌳'));
-      const msg = statusEl('Something is rustling. Jump in front of the right bush to protect her!');
+      const msg = statusEl('Something is rustling. Help me find the right bush so I can protect you!');
       const dots = h('div', { class: 'dots', 'aria-hidden': 'true' }, Array.from({ length: NEED }, () => h('i')));
       const paint = () => [...dots.children].forEach((d, k) => d.classList.toggle('on', k < streak));
       const clear = () => bushes.forEach((b) => b.classList.remove('rustle', 'safe', 'squirrel'));
@@ -64,13 +66,13 @@
       };
       const tap = (i) => {
         if (!running) return;
-        if (i !== target) { miss('Wrong bush! Protect her from the right one.'); return; }
+        if (i !== target) { miss('Wrong bush! Find the shaking one.'); return; }
         running = false; clearTimeout(timer);
         streak++; round++; paint(); blip(streak);
         clear();
         if (streak >= NEED) {
           bushes[i].classList.add('squirrel');
-          msg.textContent = 'It was… a squirrel. A very brave protector, and a very scared squirrel.';
+          msg.textContent = 'It was… a squirrel. I protected you from a squirrel. You’re welcome.';
           setTimeout(() => alive && win(), 1700);
         } else {
           bushes[i].classList.add('safe');
@@ -79,19 +81,19 @@
         }
       };
 
-      box.replaceChildren(...head('🌳', 'Rustle in the Bushes', 'Hear that? Tap the bush that is shaking before it gets away. Do it six times in a row.'),
+      box.replaceChildren(...head('🌳', 'Rustle in the Bushes', 'Something is rustling in the bushes, and I am about to jump in front of you to protect you. Help me out. Tap the shaking bush before it gets away, six times in a row.'),
         h('div', { class: 'bushes' }, bushes), dots, msg);
       setTimeout(next, 900);
     };
 
     stepTrivia();
-    return () => { alive = false; clearTimeout(timer); };
+    return () => { alive = false; clearTimeout(timer); window.SUR.hintNow = null; };
   };
 
   /* ================= 1 · 2015: caesar decoder (Pleasant Springs) ================= */
   G[1] = (box, win) => {
     const SHIFT = 7;
-    const plain = 'TWO WORDS. THE FIRST IS ANOTHER WORD FOR NICE. THE SECOND IS THE SEASON AFTER WINTER, PLURAL. LULU LIVED THERE TOO.';
+    const plain = 'TWO WORDS. THE FIRST IS ANOTHER WORD FOR NICE. THE SECOND IS THE SEASON AFTER WINTER, PLURAL. IT IS OUR FIRST APARTMENT, WHERE LULU LIVED TOO.';
     const rot = (s, k) => s.replace(/[A-Z]/g, (c) => String.fromCharCode(((c.charCodeAt(0) - 65 + k + 26) % 26) + 65));
     const cipher = rot(plain, SHIFT);
     const out = h('p', { class: 'cipher cipher--out' }, cipher);
@@ -103,7 +105,7 @@
       if (n.includes('pleasantspring')) { win(); }
       else { buzz(); shake(box); status.textContent = 'Not quite. Turn the wheel until the message makes sense.'; input.select(); }
     }, 'Apartment name');
-    box.append(...head('🔐', 'The Year-One Cipher', 'A coded note from your first year. Turn the wheel until it reads like English, then answer what it asks.'),
+    box.append(...head('🔐', 'The Year-One Cipher', 'A coded note from our first year of marriage. Turn the wheel until it reads like English, then answer what it asks.'),
       h('p', { class: 'cipher' }, cipher),
       h('div', { class: 'shiftbar' }, h('span', { class: 'small' }, 'Wheel'), slider, val),
       out, form, status);
@@ -140,7 +142,7 @@
     };
     const pad = h('div', { class: 'numpad' }, [1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((d) =>
       h('button', { class: 'kb', type: 'button', onclick: () => { if (cur.length < 4) { cur += d; paint(); blip(d); } } }, String(d))));
-    box.append(...head('🏡', 'The Humming Townhouse', 'Duane was born, and he hummed every night before he fell asleep. Your new Provo townhouse has a number on the door. Crack the code.'),
+    box.append(...head('🏡', 'The Humming Townhouse', 'Duane was born, and he hummed every night before he fell asleep. Our new Provo townhouse had a number on the door. Crack the code.'),
       guesses, entry, pad,
       h('div', { class: 'keys-row' },
         h('button', { class: 'kb', type: 'button', onclick: () => { cur = cur.slice(0, -1); paint(); } }, '⌫'),
@@ -169,23 +171,29 @@
       holder.append(t); return t;
     });
     const mv = h('p', { class: 'moves' }, 'Moves: 0');
+    const note = statusEl('Tap a tile in the same row or column as the empty space and it slides over.');
     const layout = () => arr.forEach((id, pos) => { tiles[id].style.left = `${(pos % N) * (100 / N)}%`; tiles[id].style.top = `${Math.floor(pos / N) * (100 / N)}%`; });
     function press(id) {
       if (done) return;
+      if (id === BLANK) { note.textContent = 'That is the empty space. Tap a tile in line with it.'; return; }
       const pos = arr.indexOf(id), bp = arr.indexOf(BLANK);
-      if (!nbrs(pos).includes(bp)) { return; }
-      arr[pos] = BLANK; arr[bp] = id; moves++; mv.textContent = `Moves: ${moves}`; blip(moves % 6); layout();
-      if (arr.every((v, i) => v === i)) { done = true; tiles[BLANK].classList.remove('blank'); setTimeout(win, 1200); }
+      const sameRow = Math.floor(pos / N) === Math.floor(bp / N), sameCol = pos % N === bp % N;
+      if (!sameRow && !sameCol) { buzz(); note.textContent = 'That tile is not in line with the empty space. Pick one in its row or column.'; return; }
+      const step = sameRow ? (pos > bp ? 1 : -1) : (pos > bp ? N : -N);
+      for (let k = bp; k !== pos; k += step) arr[k] = arr[k + step];
+      arr[pos] = BLANK;
+      moves++; mv.textContent = `Moves: ${moves}`; note.textContent = ''; blip(moves % 6); layout();
+      if (arr.every((v, i) => v === i)) { done = true; tiles[BLANK].classList.remove('blank'); note.textContent = 'There it is!'; setTimeout(win, 1200); }
     }
     layout();
-    box.append(...head('📸', 'Sand in the Camera', 'In Hawai’i you tried to take a perfect picture, and Duane fell in the sand. The photo got scrambled. Slide the tiles back into place.'), holder, mv);
+    box.append(...head('📸', 'Sand in the Camera', 'In Hawai’i we tried to take a perfect picture, and Duane fell in the sand. The photo got scrambled. Slide the tiles back into place.'), holder, mv, note);
   };
 
   /* ================= 4 · 2018: hangman (song) ================= */
   G[4] = (box, win) => {
     const PHRASE = 'IF YOU LOVE HER', LIVES = 6;
     let used = new Set(), lives = LIVES, over = false;
-    const status = statusEl('Name the song of 2018. Andy arrived, and the TV cameras were secretly recording.');
+    const status = statusEl('Name the song of 2018. Andy arrived, and the TV cameras were secretly recording me.');
     const phrase = h('div', { class: 'phrase' }), life = h('p', { class: 'lives', 'aria-live': 'polite' });
     const kbd = h('div', { class: 'keys-row' });
     const keyBtns = {};
@@ -208,7 +216,7 @@
     const onKey = (e) => { if (/^[a-z]$/i.test(e.key) && !e.metaKey && !e.ctrlKey && !e.altKey && !/input|textarea/i.test(e.target.tagName)) guess(e.key.toUpperCase()); };
     document.addEventListener('keydown', onKey);
     paint();
-    box.append(...head('📺', 'You Were On Air', 'You said some things on camera and had no idea they were recording. Guess the title of this year’s song before your hearts run out.'), phrase, life, kbd, status);
+    box.append(...head('📺', 'Caught on Camera', 'Andy was born, and I got on TV saying things I did not know they were recording. Guess the title of this year’s song before your hearts run out.'), phrase, life, kbd, status);
     return () => document.removeEventListener('keydown', onKey);
   };
 
@@ -238,7 +246,7 @@
       }, 750);
     }
     deal();
-    box.append(...head('🏰', 'The Surprise Trip', 'You graduated, you got a cat named Paka, and you secretly booked Ashley a birthday trip to Disneyland. Match all eight pairs in 18 moves.'), grid, mv, status);
+    box.append(...head('🏰', 'The Surprise Trip', 'I graduated, we got a cat named Paka, and I surprised you with a birthday trip to Disneyland. Match all eight pairs in 18 moves.'), grid, mv, status);
     return () => { alive = false; };
   };
 
@@ -267,7 +275,7 @@
     const onKey = (e) => { if (e.code === 'Space' && !/input|textarea|button/i.test(e.target.tagName)) { e.preventDefault(); hold(); } };
     document.addEventListener('keydown', onKey);
     place(); t0 = performance.now(); raf = requestAnimationFrame(loop);
-    box.append(...head('🤠', 'Ute Stampede', 'Cody was born, you hated the Ute mascot, and yet you loved the Ute Stampede Rodeo. Hold on to that bull.'),
+    box.append(...head('🤠', 'Ute Stampede', 'Cody was born, and even though I do not like a team with the Ute mascot, I love the Ute Stampede Rodeo. Hold on to that bull.'),
       bar, dots, h('button', { class: 'btn bigbtn', type: 'button', onclick: hold }, 'Hold on!'), status);
     return () => { alive = false; cancelAnimationFrame(raf); document.removeEventListener('keydown', onKey); };
   };
@@ -342,7 +350,7 @@
       raf = requestAnimationFrame(step);
     }
     draw();
-    box.append(...head('🏀', 'Heads Carolina, Tails California', 'Brigham was born, you moved to North Carolina, and you ended up in a Dude Perfect video. Make three trick shots.'),
+    box.append(...head('🏀', 'Heads Carolina, Tails California', 'Brigham was born, we moved to North Carolina, and we got in a Dude Perfect video. Make three trick shots.'),
       cv, dots,
       h('div', { class: 'sliders' }, h('label', {}, 'Angle', angle, aOut), h('label', {}, 'Power', power, pOut)),
       throwBtn, status);
@@ -378,7 +386,7 @@
       }
       if (cx === p[0] && cy === p[1]) { buzz(); return; }
       p = [cx, cy]; moves++; blip(moves % 7); paint();
-      if (cx === goal[0] && cy === goal[1]) { done = true; status.textContent = 'Castle reached. Disney wanted you on the team.'; setTimeout(win, 1100); }
+      if (cx === goal[0] && cy === goal[1]) { done = true; status.textContent = 'Castle reached. Welcome to Disney.'; setTimeout(win, 1100); }
     }
     const dirs = { ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0] };
     const onKey = (e) => { const d = dirs[e.key]; if (d && !/input|textarea/i.test(e.target.tagName)) { e.preventDefault(); slide(...d); } };
@@ -392,7 +400,7 @@
     });
     const btn = (cls, label, ch, d) => h('button', { class: cls, type: 'button', 'aria-label': label, onclick: () => slide(...d) }, ch);
     paint();
-    box.append(...head('🚐', 'Slippery Tires', 'Disney hired you, you explored all over North Carolina, and the borrowed van had terrible snow tires. Slide to the castle. Swipe, tap the arrows, or use your keyboard.'),
+    box.append(...head('🚐', 'Slippery Tires', 'I started working at Disney, we explored all over North Carolina, and the van we borrowed had terrible tires in the snow. Slide to the castle. Swipe, tap the arrows, or use your keyboard.'),
       grid, h('div', { class: 'dpad' }, btn('up', 'Up', '▲', [0, -1]), btn('left', 'Left', '◀', [-1, 0]), btn('down', 'Down', '▼', [0, 1]), btn('right', 'Right', '▶', [1, 0])),
       mv, h('button', { class: 'linkbtn', type: 'button', onclick: () => { p = [...start]; moves = 0; done = false; paint(); } }, 'Reset the van'), status);
     return () => document.removeEventListener('keydown', onKey);
@@ -518,7 +526,7 @@
       } else { buzz(); status.textContent = 'Not a word on the list. Try again.'; }
     }
     paintList();
-    box.append(...head('🗽', 'Windy at the Statue', 'Duane was baptized, and then you all took a trip to New York where it was very windy and Ashley walked everywhere. Find the six words.'), grid, list, status);
+    box.append(...head('🗽', 'Windy at the Statue', 'Duane was baptized, and then we took a trip to New York City where it was very windy and you walked everywhere. Find the six words.'), grid, list, status);
   };
 
   /* ================= 11 · 2025: lights out ================= */
@@ -537,7 +545,7 @@
       if (board.every(Boolean)) { done = true; status.textContent = 'The whole homestead is glowing.'; setTimeout(win, 1100); }
     }
     paint();
-    box.append(...head('🌾', 'Light Up the Homestead', 'Ephraim was born, the boys won the flag football championship, and you finally got all the land you wanted. Switch on every light across the homestead.'),
+    box.append(...head('🌾', 'Light Up the Homestead', 'Ephraim was born, the boys won the flag football championship, and we finally got all the land we wanted. Switch on every light across the homestead.'),
       grid, mv, h('button', { class: 'linkbtn', type: 'button', onclick: () => { board = fresh(); moves = 0; paint(); } }, 'Start over'), status);
   };
 
@@ -571,6 +579,6 @@
     const pad = h('div', { class: 'symrow' }, SYM.map((s, i) => h('button', { class: 'kb', type: 'button', 'aria-label': `Symbol ${i + 1}`, onclick: () => put(i + 1) }, s)),
       h('button', { class: 'kb', type: 'button', 'aria-label': 'Erase', onclick: () => put(0) }, '⌫'));
     paint();
-    box.append(...head('🚁', 'Check-In, Please', 'You traveled a ton and flew in a helicopter, and the boys decided a hotel room must be free. Fill the hotel’s key-card grid.'), grid, pad, status);
+    box.append(...head('🚁', 'Check-In, Please', 'We traveled a ton and flew in a helicopter, and the boys decided a hotel room must be free. Fill the hotel’s key-card grid.'), grid, pad, status);
   };
 })();
