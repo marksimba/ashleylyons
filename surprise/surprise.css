@@ -114,13 +114,20 @@
 .dpad button { border-radius: 12px; border: 1px solid rgba(233, 201, 131, 0.35); background: rgba(233, 201, 131, 0.15); color: var(--cream); font-size: 1.2rem; cursor: pointer; }
 .dpad .up { grid-column: 2; grid-row: 1; } .dpad .left { grid-column: 1; grid-row: 2; } .dpad .down { grid-column: 2; grid-row: 2; } .dpad .right { grid-column: 3; grid-row: 2; }
 
-/* ---------- six boys ---------- */
-.bank { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin: 0.8rem 0; }
-.bank span { padding: 0.4rem 0.9rem; border-radius: 999px; background: rgba(233, 201, 131, 0.2); letter-spacing: 0.2em; font-weight: 500; }
-.rows { display: grid; gap: 0.45rem; max-width: 380px; margin: 0.8rem auto; }
-.rows label { display: grid; grid-template-columns: 3.6rem 1fr; gap: 0.6rem; align-items: center; font: 600 1.15rem var(--serif); color: var(--gold-soft); text-align: left; }
-.rows input { padding: 0.65rem 0.9rem; border-radius: 10px; border: 1px solid rgba(233, 201, 131, 0.4); background: rgba(0, 0, 0, 0.35); color: var(--cream); font: 400 1rem var(--sans); width: 100%; }
-.rows input.ok { border-color: #6fd08c; background: rgba(111, 208, 140, 0.18); }
+/* ---------- road trip (2023) ---------- */
+.road { position: relative; height: 70px; margin: 1.2rem 0 0.8rem; border-radius: 12px; background: #2b2f33; border: 1px solid rgba(233, 201, 131, 0.25); overflow: hidden; }
+.road::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 3px dashed rgba(233, 201, 131, 0.45); }
+.road__van { position: absolute; top: 50%; font-size: 2.2rem; line-height: 1; transform: translate(0, -55%); transition: none; }
+.road__bump { position: absolute; top: 50%; font-size: 1.3rem; transform: translate(-50%, -50%); }
+.road__end { position: absolute; right: 4px; top: 50%; font-size: 1.6rem; transform: translateY(-50%); }
+.gauge { position: relative; height: 22px; border-radius: 999px; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(233, 201, 131, 0.3); overflow: hidden; margin: 0.4rem 0; }
+.gauge--thin { height: 10px; }
+.gauge__fill { height: 100%; width: 0; background: linear-gradient(90deg, #6fd08c, var(--gold)); border-radius: inherit; }
+.gauge__fill.danger { background: linear-gradient(90deg, var(--gold), #e0523f); }
+.gauge__fill--time { background: rgba(169, 192, 163, 0.8); }
+.gauge__limit { position: absolute; top: -2px; bottom: -2px; width: 4px; margin-left: -2px; background: var(--gold-soft); box-shadow: 0 0 8px var(--gold); }
+.drive { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; margin-top: 0.4rem; }
+.drive.is-down { transform: scale(0.97); box-shadow: 0 0 30px rgba(111, 208, 140, 0.6); }
 
 /* ---------- word search ---------- */
 .ws { display: grid; grid-template-columns: repeat(9, 1fr); width: min(100%, 380px); margin: 0.8rem auto; gap: 2px; user-select: none; }

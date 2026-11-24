@@ -398,28 +398,66 @@
     return () => document.removeEventListener('keydown', onKey);
   };
 
-  /* ================= 9 · 2023: six boys, scrambled ================= */
+  /* ================= 9 · 2023: "please don't get air" road trip ================= */
+  const DRIVE = { LEN: 1000, MAXV: 100, ACC: 55, DEC: 85, TIME: 20,
+    BUMPS: [{ x: 180, lim: 60 }, { x: 360, lim: 45 }, { x: 540, lim: 55 }, { x: 720, lim: 40 }, { x: 880, lim: 50 }] };
+  window.SUR.DRIVE = DRIVE;
+  window.SUR.driveState = { pos: 0, speed: 0, next: 0, over: false };
   G[9] = (box, win) => {
-    const BOYS = [['Duane', 2016], ['Andy', 2018], ['Cody', 2020], ['Brigham', 2021], ['Kirk', 2023], ['Ephraim', 2025]];
-    const r = rng(2023);
-    const scramble = (w) => { let s; let n = 0; do { s = [...w.toUpperCase()].sort(() => r() - 0.5).join(''); n++; } while (s === w.toUpperCase() && n < 20); return s; };
-    const bank = BOYS.map(([n]) => scramble(n)).sort(() => r() - 0.5);
-    const status = statusEl();
-    const inputs = BOYS.map(([name]) => {
-      const el = h('input', { type: 'text', autocomplete: 'off', autocapitalize: 'words', spellcheck: 'false', 'aria-label': 'Name' });
-      el.addEventListener('input', () => { el.classList.toggle('ok', norm(el.value) === norm(name)); check(); });
-      return el;
-    });
-    inputs.forEach((el, i) => el.setAttribute('aria-label', `Boy born in ${BOYS[i][1]}`));
-    let finished = false;
-    function check() {
-      const n = inputs.filter((el, i) => norm(el.value) === norm(BOYS[i][0])).length;
-      status.textContent = `${n} of 6 placed`;
-      if (n === 6 && !finished) { finished = true; blip(6); setTimeout(win, 900); }
+    const { LEN, MAXV, ACC, DEC, TIME, BUMPS } = DRIVE;
+    let pos = 0, v = 0, t = 0, held = false, next = 0, running = true, paused = false, last = 0, raf;
+    const st = window.SUR.driveState;
+    const van = h('div', { class: 'road__van', 'aria-hidden': 'true' }, '🚐');
+    const road = h('div', { class: 'road', role: 'img', 'aria-label': 'Road with five speed bumps' }, van,
+      BUMPS.map((b) => { const m = h('div', { class: 'road__bump' }, '⚠️'); m.style.left = `${(b.x / LEN) * 100}%`; return m; }),
+      h('div', { class: 'road__end', 'aria-hidden': 'true' }, '🏁'));
+    const needle = h('div', { class: 'gauge__fill' }), limit = h('div', { class: 'gauge__limit' });
+    const gauge = h('div', { class: 'gauge', role: 'progressbar', 'aria-label': 'Speed' }, needle, limit);
+    const timeFill = h('div', { class: 'gauge__fill gauge__fill--time' });
+    const clock = h('div', { class: 'gauge gauge--thin', role: 'progressbar', 'aria-label': 'Time left' }, timeFill);
+    const info = h('p', { class: 'moves' }), status = statusEl('Hold to drive. Let go to brake. Each ⚠️ has a speed limit, shown by the gold line.');
+    const btn = h('button', { class: 'btn bigbtn drive', type: 'button' }, 'Hold to drive');
+    btn.style.touchAction = 'none';
+    const press = (e) => { if (e && e.cancelable) e.preventDefault(); if (!paused) held = true; btn.classList.add('is-down'); };
+    const release = () => { held = false; btn.classList.remove('is-down'); };
+    btn.addEventListener('pointerdown', press);
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach((n) => btn.addEventListener(n, release));
+    btn.addEventListener('contextmenu', (e) => e.preventDefault());
+    const kd = (e) => { if (e.code === 'Space' && !e.repeat) { e.preventDefault(); press(); } };
+    const ku = (e) => { if (e.code === 'Space') release(); };
+    document.addEventListener('keydown', kd); document.addEventListener('keyup', ku);
+
+    const reset = (msg) => {
+      paused = true; held = false; btn.classList.remove('is-down'); buzz(); shake(box); status.textContent = msg;
+      setTimeout(() => { pos = 0; v = 0; t = 0; next = 0; paused = false; last = performance.now(); status.textContent = 'Back to the start. Slow down for the bumps!'; }, 1300);
+    };
+    function frame(now) {
+      if (!running) return;
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      if (!paused) {
+        t += dt; v = Math.max(0, Math.min(MAXV, v + (held ? ACC : -DEC) * dt));
+        const np = pos + v * dt, b = BUMPS[next];
+        if (b && pos < b.x && np >= b.x) {
+          if (v > b.lim) { reset('🚐💨 AIR! The kids loved it. Nobody else did.'); pos = b.x; }
+          else { next++; blip(next); status.textContent = ['Smooth.', 'Gentle…', 'Nice and easy.', 'Almost there!', 'Last one cleared!'][next - 1]; }
+        }
+        if (!paused) pos = np;
+        if (pos >= LEN) { running = false; status.textContent = 'Arrived. No air. (Mostly.)'; setTimeout(win, 1100); }
+        else if (t >= TIME) reset('Are we there yet?! Too slow. The kids revolted.');
+      }
+      const nb = BUMPS[next];
+      const pct = Math.min(100, (pos / LEN) * 100); van.style.left = `${pct}%`; van.style.transform = `translate(-${pct}%, -55%)`;
+      needle.style.width = `${(v / MAXV) * 100}%`; needle.classList.toggle('danger', !!nb && v > nb.lim);
+      limit.style.left = nb ? `${(nb.lim / MAXV) * 100}%` : '100%'; limit.style.display = nb ? '' : 'none';
+      timeFill.style.width = `${Math.max(0, (1 - t / TIME) * 100)}%`;
+      info.textContent = nb ? `Speed ${Math.round(v)} · next limit ${nb.lim}` : `Speed ${Math.round(v)} · clear road!`;
+      st.pos = pos; st.speed = v; st.next = next; st.over = !running;
+      raf = requestAnimationFrame(frame);
     }
-    box.append(...head('👨‍👦‍👦', 'Stitches and Scrambles', 'Kirk was born, Brigham got stitches, and the van got air on the road trip. Meanwhile, your six boys’ names have been scrambled. Unscramble them and write each name next to the year he was born.'),
-      h('div', { class: 'bank', 'aria-label': 'Scrambled names' }, bank.map((s) => h('span', {}, s))),
-      h('div', { class: 'rows' }, BOYS.map(([, y], i) => h('label', {}, String(y), inputs[i]))), status);
+    last = performance.now(); raf = requestAnimationFrame(frame);
+    box.append(...head('🚐', 'Please Don’t Get Air', 'Kirk was born, Brigham got stitches, and on the road trip the van accidentally caught some air. Get to the end of the road before the kids revolt, without launching.'),
+      road, gauge, clock, info, btn, status);
+    return () => { running = false; cancelAnimationFrame(raf); document.removeEventListener('keydown', kd); document.removeEventListener('keyup', ku); };
   };
 
   /* ================= 10 · 2024: word search ================= */
