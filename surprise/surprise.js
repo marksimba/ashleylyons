@@ -221,7 +221,17 @@
       state = { s: 14, d: false }; save(); startReveal(true);
     }
   }
+  /* The invitation is only attached to the page once she reaches the reveal,
+     so link previews and scrapers never see it in the page's HTML. */
+  function attachInvitation() {
+    const img = $('#inviteImg');
+    if (img.getAttribute('src')) return;
+    img.alt = 'Invitation. You’re invited, Ashley Lyons. December 4, 2026, 7:00 PM. Privette Hill Prom. RSVP by November 28, 2026.';
+    img.src = 'img/invitation.jpg';
+    const save = $('#saveInvite'); save.href = 'img/invitation.jpg'; save.download = 'Ash-invitation.jpg';
+  }
   function startReveal(withConfetti) {
+    attachInvitation();
     show('reveal'); paintPieces();
     window.scrollTo({ top: 0, behavior: 'auto' });
     if (withConfetti) { fanfare(); burst(); }
