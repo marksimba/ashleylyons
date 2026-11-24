@@ -493,16 +493,18 @@
   window.SUR.buildSearch = buildSearch; window.SUR.WORDS = WORDS;
   G[10] = (box, win) => {
     const N = 9, g = buildSearch(), found = new Set();
-    let start = null;
+    let start = null, drag = null, alive = true;
     const btns = [];
     const list = h('div', { class: 'wlist', 'aria-label': 'Words to find' });
-    const status = statusEl('Tap the first letter of a word, then the last letter. Words can run backwards and diagonally.');
+    const status = statusEl('Drag your finger across a word, or tap its first letter and then its last letter. Words can run backwards and diagonally.');
     const paintList = () => list.replaceChildren(...WORDS.map((w) => (found.has(w) ? h('s', {}, w) : h('span', {}, w))));
     const grid = h('div', { class: 'ws' });
     for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
-      const b = h('button', { type: 'button', 'aria-label': `${g[y][x]} row ${y + 1} column ${x + 1}`, onclick: () => tap(x, y) }, g[y][x]);
+      const b = h('button', { type: 'button', 'data-x': x, 'data-y': y, 'aria-label': `${g[y][x]} row ${y + 1} column ${x + 1}`,
+        onclick: (e) => { if (e.detail === 0) tapCell([x, y]); } }, g[y][x]); /* detail 0 = keyboard; mouse and touch go through pointer events */
       btns.push(b); grid.append(b);
     }
+    const at = (c) => btns[c[1] * N + c[0]];
     function line(a, b) {
       const dx = b[0] - a[0], dy = b[1] - a[1], len = Math.max(Math.abs(dx), Math.abs(dy));
       if (len === 0 || !(dx === 0 || dy === 0 || Math.abs(dx) === Math.abs(dy))) return null;
@@ -510,24 +512,71 @@
       for (let i = 0; i <= len; i++) cells.push([a[0] + sx * i, a[1] + sy * i]);
       return cells;
     }
-    function tap(x, y) {
-      if (start && start[0] === x && start[1] === y) { btns[y * N + x].classList.remove('start'); start = null; return; }
-      if (!start) { start = [x, y]; btns[y * N + x].classList.add('start'); blip(0); return; }
-      const cells = line(start, [x, y]);
-      btns[start[1] * N + start[0]].classList.remove('start');
-      start = null;
-      if (!cells) { buzz(); start = [x, y]; btns[y * N + x].classList.add('start'); return; }
-      const str = cells.map(([cx, cy]) => g[cy][cx]).join(''), rev = [...str].reverse().join('');
+    const text = (cells) => cells.map(([cx, cy]) => g[cy][cx]).join('');
+    const clearMarks = (cls) => btns.forEach((b) => b.classList.remove(cls));
+    const setStart = (c) => { clearMarks('start'); start = c; if (c) at(c).classList.add('start'); };
+    const cellAt = (e) => {
+      const el = document.elementFromPoint(e.clientX, e.clientY), b = el && el.closest ? el.closest('.ws button') : null;
+      return b ? [+b.dataset.x, +b.dataset.y] : null;
+    };
+
+    function attempt(a, b) {
+      const cells = line(a, b);
+      setStart(null);
+      if (!cells) { buzz(); status.textContent = 'Those two letters are not in a straight line. A word goes across, down, or diagonally.'; return; }
+      const str = text(cells), rev = [...str].reverse().join('');
       const w = WORDS.find((q) => q === str || q === rev);
       if (w && !found.has(w)) {
-        found.add(w); cells.forEach(([cx, cy]) => btns[cy * N + cx].classList.add('found')); blip(found.size + 2); paintList();
+        found.add(w); cells.forEach((c) => at(c).classList.add('found')); blip(found.size + 2); paintList();
         status.textContent = `Found ${w}! ${WORDS.length - found.size} to go.`;
-        if (found.size === WORDS.length) setTimeout(win, 900);
-      } else { buzz(); status.textContent = 'Not a word on the list. Try again.'; }
+        if (found.size === WORDS.length) setTimeout(() => alive && win(), 900);
+      } else if (w) {
+        status.textContent = `You already found ${w}.`;
+      } else {
+        buzz(); cells.forEach((c) => at(c).classList.add('bad'));
+        setTimeout(() => cells.forEach((c) => at(c).classList.remove('bad')), 600);
+        status.textContent = `${str} is not on the list. Try another word.`;
+      }
     }
+    function tapCell(c) {
+      if (start && start[0] === c[0] && start[1] === c[1]) { setStart(null); status.textContent = 'Selection cleared.'; return; }
+      if (!start) { setStart(c); blip(0); status.textContent = `Started at ${g[c[1]][c[0]]}. Now tap the last letter of the word.`; return; }
+      attempt(start, c);
+    }
+    function preview(a, b) {
+      clearMarks('sel');
+      const cells = line(a, b) || [a];
+      cells.forEach((c) => at(c).classList.add('sel'));
+    }
+
+    grid.addEventListener('pointerdown', (e) => {
+      const c = cellAt(e); if (!c) return;
+      drag = { from: c, moved: false };
+      preview(c, c);
+    });
+    grid.addEventListener('pointermove', (e) => {
+      if (!drag) return;
+      const c = cellAt(e); if (!c) return;
+      if (c[0] !== drag.from[0] || c[1] !== drag.from[1]) drag.moved = true;
+      preview(drag.from, c);
+    });
+    const finish = (e, cancelled) => {
+      if (!drag) return;
+      const from = drag.from, moved = drag.moved, c = cellAt(e) || from;
+      drag = null; clearMarks('sel');
+      if (cancelled) return;
+      if (moved && (c[0] !== from[0] || c[1] !== from[1])) attempt(from, c);
+      else tapCell(from);
+    };
+    grid.addEventListener('pointerup', (e) => finish(e, false));
+    grid.addEventListener('pointercancel', (e) => finish(e, true));
+    grid.addEventListener('contextmenu', (e) => e.preventDefault());
+
     paintList();
     box.append(...head('🗽', 'Windy at the Statue', 'Duane was baptized, and then we took a trip to New York City where it was very windy and you walked everywhere. Find the six words.'), grid, list, status);
+    return () => { alive = false; };
   };
+
 
   /* ================= 11 · 2025: lights out ================= */
   window.SUR.LIGHTS_PRESSES = [[1, 0], [3, 1], [0, 2], [2, 2], [4, 3], [1, 4], [3, 4], [1, 1]];
