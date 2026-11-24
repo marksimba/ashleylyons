@@ -179,3 +179,5 @@
 
 /* sliding puzzle: show the empty space so it is clear where tiles go */
 .slide button.blank { visibility: visible; cursor: default; background: rgba(233, 201, 131, 0.08) !important; border: 2px dashed rgba(233, 201, 131, 0.45); }
+
+.mood { min-height: 1.5em; margin: 0.3rem 0; font-style: italic; color: var(--sage); }

@@ -407,7 +407,7 @@
   };
 
   /* ================= 9 · 2023: "please don't get air" road trip ================= */
-  const DRIVE = { LEN: 1000, MAXV: 100, ACC: 55, DEC: 85, TIME: 20,
+  const DRIVE = { LEN: 1000, MAXV: 100, ACC: 55, DEC: 85, TIME: 45,
     BUMPS: [{ x: 180, lim: 60 }, { x: 360, lim: 45 }, { x: 540, lim: 55 }, { x: 720, lim: 40 }, { x: 880, lim: 50 }] };
   window.SUR.DRIVE = DRIVE;
   window.SUR.driveState = { pos: 0, speed: 0, next: 0, over: false };
@@ -422,8 +422,10 @@
     const needle = h('div', { class: 'gauge__fill' }), limit = h('div', { class: 'gauge__limit' });
     const gauge = h('div', { class: 'gauge', role: 'progressbar', 'aria-label': 'Speed' }, needle, limit);
     const timeFill = h('div', { class: 'gauge__fill gauge__fill--time' });
-    const clock = h('div', { class: 'gauge gauge--thin', role: 'progressbar', 'aria-label': 'Time left' }, timeFill);
-    const info = h('p', { class: 'moves' }), status = statusEl('Hold to drive. Let go to brake. Each ⚠️ has a speed limit, shown by the gold line.');
+    const clock = h('div', { class: 'gauge gauge--thin', role: 'progressbar', 'aria-label': 'Kids’ patience' }, timeFill);
+    const info = h('p', { class: 'moves' }), status = statusEl('Hold to drive. Let go to brake. Each ⚠️ has a speed limit, shown by the gold line. Keep an eye on the kids’ patience bar.');
+    const MOODS = [[0.05, '👶 *dramatic wailing*'], [0.15, '🧒 “He’s touching me!”'], [0.35, '👧 “I need to pee!”'], [0.6, '🧒 “Are we there yet?”'], [1, '😇 The kids are angels. For now.']];
+    const mood = h('p', { class: 'mood', 'aria-live': 'polite' }, MOODS[MOODS.length - 1][1]);
     const btn = h('button', { class: 'btn bigbtn drive', type: 'button' }, 'Hold to drive');
     btn.style.touchAction = 'none';
     const press = (e) => { if (e && e.cancelable) e.preventDefault(); if (!paused) held = true; btn.classList.add('is-down'); };
@@ -447,24 +449,26 @@
         const np = pos + v * dt, b = BUMPS[next];
         if (b && pos < b.x && np >= b.x) {
           if (v > b.lim) { reset('🚐💨 AIR! The kids loved it. Nobody else did.'); pos = b.x; }
-          else { next++; blip(next); status.textContent = ['Smooth.', 'Gentle…', 'Nice and easy.', 'Almost there!', 'Last one cleared!'][next - 1]; }
+          else { next++; blip(next); status.textContent = ['Smooth as butter.', 'Gentle as a sleeping baby…', 'Nice and easy. Nobody spilled anything.', 'Almost there! Somebody needs a snack.', 'Last bump cleared!'][next - 1]; }
         }
         if (!paused) pos = np;
         if (pos >= LEN) { running = false; status.textContent = 'Arrived. No air. (Mostly.)'; setTimeout(win, 1100); }
-        else if (t >= TIME) reset('Are we there yet?! Too slow. The kids revolted.');
+        else if (t >= TIME) reset('The kids staged a full revolt. Snack break! Back to the start.');
       }
       const nb = BUMPS[next];
       const pct = Math.min(100, (pos / LEN) * 100); van.style.left = `${pct}%`; van.style.transform = `translate(-${pct}%, -55%)`;
       needle.style.width = `${(v / MAXV) * 100}%`; needle.classList.toggle('danger', !!nb && v > nb.lim);
       limit.style.left = nb ? `${(nb.lim / MAXV) * 100}%` : '100%'; limit.style.display = nb ? '' : 'none';
-      timeFill.style.width = `${Math.max(0, (1 - t / TIME) * 100)}%`;
+      const left = Math.max(0, 1 - t / TIME);
+      timeFill.style.width = `${left * 100}%`;
+      const m = MOODS.find(([lim]) => left <= lim)[1]; if (mood.textContent !== m) mood.textContent = m;
       info.textContent = nb ? `Speed ${Math.round(v)} · next limit ${nb.lim}` : `Speed ${Math.round(v)} · clear road!`;
       st.pos = pos; st.speed = v; st.next = next; st.over = !running;
       raf = requestAnimationFrame(frame);
     }
     last = performance.now(); raf = requestAnimationFrame(frame);
-    box.append(...head('🚐', 'Please Don’t Get Air', 'Kirk was born, Brigham got stitches, and on the road trip the van accidentally caught some air. Get to the end of the road before the kids revolt, without launching.'),
-      road, gauge, clock, info, btn, status);
+    box.append(...head('🚐', 'Please Don’t Get Air', 'Kirk was born, Brigham got stitches, and on the road trip the van accidentally caught some air. Get to the end of the road before the kids lose all patience, without launching.'),
+      road, gauge, h('p', { class: 'small' }, 'Kids’ patience'), clock, mood, info, btn, status);
     return () => { running = false; cancelAnimationFrame(raf); document.removeEventListener('keydown', kd); document.removeEventListener('keyup', ku); };
   };
 

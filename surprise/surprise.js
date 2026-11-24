@@ -62,7 +62,7 @@
       big: 'Kirk was born, and Brigham got stitches this year.',
       joke: 'We accidentally got air in our van on our road trip.',
       song: ['Growing Old With You', 'Restless Road'],
-      hint: 'Floor it between bumps, then let go early. Braking takes a moment, so start slowing well before each ⚠️. The gold line is the limit.' },
+      hint: 'You have plenty of time now. Drive, then let go early. Braking takes a moment, so start slowing well before each ⚠️ and keep your speed under the gold line.' },
     { year: 2024, tag: 'Year 10', title: 'Windy at the Statue', alt: 'The Statue of Liberty with the two of us at its base',
       big: 'Duane was baptized, and we took a trip to New York City.',
       joke: 'It was super duper windy at the Statue of Liberty. And I did not get us public transportation, so you walked around the city while pregnant.',
